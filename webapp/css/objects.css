@@ -1,0 +1,220 @@
+
+
+:root {
+    --object-background-color: #1e1e1e;
+    --object-text-color: #d4d4d4;
+    --object-comment-color: #6A9955;
+    --object-number-color: #B5CEA8;
+    --object-string-color: #CE9178;
+    --object-property-color: #9CDCFE;
+    --object-keyword-color: #569CD6;
+}
+
+.object-block {
+    display: block;
+    margin: 0.5em 0;
+    position: relative;
+    padding: 0.5em;
+    border-radius: 0.4em;
+    background-color: var(--object-background-color);
+    color: var(--object-property-color);
+    width: 60em;
+    --open-symbol: "{";
+    --close-symbol: "}";
+    --object-symbol-color: var(--object-text-color);
+    max-height: 4000px;
+    transition: max-height 0.4s;
+    overflow: auto;
+}
+
+.object-block .object-block {
+    width: 100%;
+}
+
+.object-block .object-block > div {
+    background-color: #333;
+    width: 100%;
+    padding-right: 0.2em;
+}
+.object-block .object-block > div:first-child {
+    border-top-right-radius: 0.4em;
+    border-top-left-radius: 0.4em;
+}
+.object-block .object-block > div:last-child {
+    border-bottom-right-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+}
+
+
+.arr-block {
+    --open-symbol: "[";
+    --close-symbol: "]";
+}
+
+.comment-block {
+    --open-symbol: "/*";
+    --close-symbol: "*/";
+    --object-symbol-color: var(--object-comment-color);
+    color: var(--object-comment-color);
+}
+
+
+.object-block > div:first-child {
+    position: relative;
+    display: inline-block;
+}
+
+.object-block > div:first-child::after {
+    color: var(--object-symbol-color);
+    white-space: nowrap;
+}
+
+.object-block > div:first-child:not(.anonymous)::after {
+    content: ": \00A0 " var(--open-symbol);
+}
+
+.anonymous::after {
+    content: var(--open-symbol);
+}
+
+
+.object-block > div:first-child + div {
+    padding-left: 2em;
+    padding-bottom: 1em;
+    position: relative;
+}
+
+.object-block > div:first-child + div::after {
+    position: absolute;
+    content: var(--close-symbol) ",";
+    bottom: 0;
+    left: 0;
+    color: var(--object-symbol-color);
+}
+
+
+.object__prop-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.object__prop-val {
+    position: relative;
+    margin-right: 1em;
+}
+
+.object__prop-val::after {
+    content: ":";
+    color: var(--object-text-color);
+}
+
+.object__val-arr > div,
+.object__prop-val + *.string,
+.object__prop-val + *:not([class]) {
+    color: var(--object-string-color);
+}
+
+.object__val-arr > div:last-child::after,
+.object__val-arr > div::before,
+.object__prop-val + *.string::before,
+.object__prop-val + *:not([class])::before {
+    content: "\0022";
+    color: inherit;
+}
+
+
+.object__val-arr > div::after,
+.object__prop-val + *.string::after,
+.object__prop-val + *:not([class])::after {
+    content: "\0022,";
+    /**comma should remain text color and quote should be string color. quote takes 63% of the space**/
+    background-image: linear-gradient(to right, var(--object-string-color) 63%, var(--object-text-color) 63% 100%);
+    background-clip: text;
+    color: transparent;
+}
+
+/* .object__prop-val + div[class]:not(.string)::after {
+    content: ",";
+    color: var(--object-text-color);
+} */
+
+
+.object__num { color: var(--object-number-color); }
+.object__keyword { color: var(--object-keyword-color); }
+
+.object__keyword::after,
+.object__num::after {
+    content: ",";
+    color: var(--object-text-color);
+}
+
+/******************SINGLE LINE ARRAYS***********/
+
+.object__val-arr {
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--object-text-color);
+}
+
+.object__val-arr::before {
+    content: "[ \00A0";
+}
+.object__val-arr::after {
+    content: "\00A0 ],";
+}
+
+.object__val-arr > div:not(:last-child) {
+    margin-right: 0.4em;
+}
+
+/*******************function buttons********/
+
+
+.object__btn {
+    margin-top: 0.3em;
+    padding: 0.25em;
+    border-radius: 4px;
+    border: 1px solid var(--object-text-color);
+    background-color: #333;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.1s;
+    /**if element is a link*/
+    color: inherit;
+}
+
+.object__btn:hover {
+    background-color: #2a2a2a;
+}
+
+.object__btn + div::before {
+    content: "function";
+    color: var(--object-keyword-color);
+}
+.object__btn + div::after {
+    content: " () {...}";
+    color: var(--object-text-color);
+}
+
+.object__btn:active {
+    translate: 0 1px;
+}
+
+
+/************text ipututs****************/
+
+.object-block textarea {
+    /* border: 1px solid var(--object-text-color); */
+    background: transparent;
+}
+
+
+
+
+@media only screen and (max-width: 64em) {
+    .object-block {
+        width: 98vw;
+    }
+}
+
