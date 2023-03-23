@@ -20,5 +20,35 @@ accountBtns.forEach(accountBtn => accountBtn.addEventListener('click', e => {
 }));
 
 
+accountForm.addEventListener('submit', e => {
+    e.preventDefault();
 
+    let route = 'login';
+    const objToSend = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    };
+
+    if (!e.target.className.includes('log')) {
+        route = 'signup';
+        objToSend.firstName = document.getElementById('firstName').value;
+        objToSend.lastName = document.getElementById('lastName').value;
+    }
+
+    fetch(`/user/${route}`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(objToSend)
+    })
+    .then(res => res.json())
+    .then(body => {
+        console.log(body);
+    })
+    .catch(err => {
+        console.log('AAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH');
+        console.log(err);
+    });
+});
 
