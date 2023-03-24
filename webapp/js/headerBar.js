@@ -44,10 +44,13 @@ accountForm.addEventListener('submit', e => {
     })
     .then(res => res.json())
     .then(body => {
-        console.log(body);
+        if (!body.isError) {
+            return accountForm.style.display = 'none';
+        }
+        alert (body.msg);
     })
     .catch(err => {
-        console.log('AAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH');
+        console.log('AAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH!!!');
         console.log(err);
     });
 });

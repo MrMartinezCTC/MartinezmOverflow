@@ -1,5 +1,6 @@
 const express = require('express');
 const user = require('./controllers/users');
+const question = require('./controllers/questions');
 const InitiateMongoServer = require('./db');
 
 InitiateMongoServer();
@@ -18,25 +19,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', user);
+app.use('/question', question);
 
-
-// app.post('/user/signup', (req, res) => {
-// 	const msg = req.body;
-// 	console.log(msg);
-
-// 	res.json({
-// 		serverMsg: 'user not signed up'
-// 	});
-// });
-
-app.post('/user/login', (req, res) => {
-	const msg = req.body;
-	console.log(msg);
-
-	res.json({
-		serverMsg: 'user not logged in'
-	});
-});
 
 
 
