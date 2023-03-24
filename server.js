@@ -1,4 +1,5 @@
 const express = require('express');
+const user = require('./controllers/users');
 const InitiateMongoServer = require('./db');
 
 InitiateMongoServer();
@@ -16,17 +17,17 @@ app.get('/', (req, res) => {
 	res.sendFile(`${__dirname}/webapp/index.html`);
 });
 
+app.use('/user', user);
 
 
+// app.post('/user/signup', (req, res) => {
+// 	const msg = req.body;
+// 	console.log(msg);
 
-app.post('/user/signup', (req, res) => {
-	const msg = req.body;
-	console.log(msg);
-
-	res.json({
-		serverMsg: 'user not signed up'
-	});
-});
+// 	res.json({
+// 		serverMsg: 'user not signed up'
+// 	});
+// });
 
 app.post('/user/login', (req, res) => {
 	const msg = req.body;

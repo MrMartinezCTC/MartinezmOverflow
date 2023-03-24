@@ -1,7 +1,8 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
-var User = new Schema({
+
+const User = new Schema({
     email: {
         maxLength: 50,
         required: true,
@@ -24,9 +25,22 @@ var User = new Schema({
         minLength: 8,
         type: String,
     }
+},{
+    collection: 'users'
 });
 
 
-User.plugin(passportLocalMongoose);
-  
-module.exports = mongoose.model('User', User);
+function validateUser(user) {
+    const schema = Joi.object({
+        firstName: Joi.string().max(20).required(),
+        lastName: Joi.string().max(20).required(),
+        email: Joi.string().max(255).required().email(),
+        password: Joi.string().min(8).max(100).required()
+    });
+
+    return schema.validate(user);
+}
+
+
+exports.User = mongoose.model('users', User);
+exports.validateUser = validateUser;
