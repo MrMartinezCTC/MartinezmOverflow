@@ -1,0 +1,173 @@
+<%- include('partials/header', { title: questionObj.title, extraStyle: '<link rel="stylesheet" href="../extrenal/css/prism.css">' }) %>
+    <div class="content-column">
+        <div class="question-meta-box object-block">
+            <div>QuestionDetails</div>
+            <div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">title</div>
+                    <h1><%= questionObj.title %></h1>
+                </div>
+                <div class="flex-row">
+                    <div class="object__prop-row">
+                        <div class="object__prop-val">user</div>
+                        <div><%= questionObj.username %></div>
+                    </div>
+                    <div class="object__prop-row">
+                        <div class="object__prop-val">asked</div>
+                        <div><%= questionObj.dateAsked %></div>
+                    </div>
+                    <div class="object__prop-row">
+                        <div class="object__prop-val">answers</div>
+                        <div class="object__num"><%= questionObj.answers.length %></div>
+                    </div>
+                    <div class="object__prop-row">
+                        <div class="object__prop-val">accepted</div>
+                        <div class="object__keyword"><%= questionObj.accepted %></div>
+                    </div>
+                    <div class="object__prop-row">
+                        <div class="object__prop-val">timesViewed</div>
+                        <div class="object__num"><%= questionObj.timesViewed %></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="question-info object-block">
+            <div>QuestionInfo</div>
+            <div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">usefulness</div>
+                    <div class="object__num">12</div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">problem</div>
+                    <div class="string question-content">
+                        <div id="questionOutput"><br>Help! This code is no good.<br><br><pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">"Jeff"</span><span class="token punctuation">;</span>
+
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    </code></pre><br><br>Just look at this horrendous c#...<br><pre class="language-cs" tabindex="0"><code class="language-cs"><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span></span> things <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"book"</span><span class="token punctuation">,</span> <span class="token string">"car"</span><span class="token punctuation">,</span> <span class="token char">'u'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>things<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    </code></pre><br><br>or this terrible html<br><pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!Doctype</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>butter-fingers<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span><span class="token punctuation">&gt;</span></span>good?<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span>
+    </code></pre><br><br><br>At least it's not as bad as Mario's Python...<br></div>
+                    </div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">tags</div>
+                    <div class="object__val-arr">
+                        <div>C#</div>
+                        <div>Programming</div>
+                        <div>Arrays</div>
+                    </div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val object__btn">upVote</div>
+                    <div class=""></div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val object__btn">downVote</div>
+                    <div class=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="object-block condensed" style="overflow: hidden;" id="answerForm">
+            <div>AnswerForm</div>
+            <div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val object__btn" id="toggleLengthBtn">expand</div>
+                    <div class=""></div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">questionContent</div>
+                    <div class="string question-content">
+                        <textarea class="question-input"></textarea>
+                    </div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val object__btn" id="submitAnswer">submit</div>
+                    <div class=""></div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val object__btn" id="cancelSubmit">cancel</div>
+                    <div class=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="object-block arr-block">
+            <div>Answers</div>
+            <div>
+                <div class="object-block">
+                    <div class="anonymous"></div>
+                    <div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">user</div>
+                            <div>Hunter Morningstar</div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">usefulness</div>
+                            <div class="object__num">15</div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">solution</div>
+                            <div>Your code no work because your code is bad. very bad.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ex minus quidem, labore possimus sapiente voluptatum perspiciatis. Nihil deleniti deserunt, iste possimus illo aut recusandae modi ad consequatur? Quod, saepe.
+                                Rerum molestiae aut perspiciatis placeat repudiandae non quae quo soluta minima consequatur blanditiis veniam debitis provident obcaecati eligendi et doloremque fugit ab ratione a commodi ad recusandae, atque dignissimos. Animi.
+                                Inventore similique, laboriosam porro, architecto consectetur quam libero, delectus corrupti error rem nesciunt! Architecto illum facilis accusamus earum soluta magnam minima explicabo aperiam? Nihil ducimus sequi iure, eum perferendis hic?
+                                A cum inventore unde minus nam velit aliquid, voluptates sit sequi veniam, eveniet necessitatibus officia praesentium explicabo temporibus tempore repellendus, optio iste sapiente incidunt nostrum quia deserunt soluta delectus. Architecto?
+                                Aliquam, perspiciatis earum. Asperiores quam ducimus, debitis mollitia cum deleniti molestiae assumenda eveniet similique vitae. Quae, dolores repudiandae. Ratione soluta similique suscipit aut expedita ipsa. Fugiat voluptatem veniam ut expedita?
+                                so in conclusion, use a list. (also your dumb)
+                            </div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val object__btn">upVote</div>
+                            <div class=""></div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val object__btn">downVote</div>
+                            <div class=""></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="object-block">
+                    <div class="anonymous"></div>
+                    <div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">user</div>
+                            <div>Gabe Miller</div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">accepted</div>
+                            <div class="object__keyword">true</div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">usefulness</div>
+                            <div class="object__num">5</div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val">solution</div>
+                            <div>I see your problem and I have a solution, but first, you're going need to hack into nasa.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ex minus quidem, labore possimus sapiente voluptatum perspiciatis. Nihil deleniti deserunt, iste possimus illo aut recusandae modi ad consequatur? Quod, saepe.
+                                Rerum molestiae aut perspiciatis placeat repudiandae non quae quo soluta minima consequatur findus a complierus blanditiis veniam debitis provident obcaecati eligendi et doloremque fugit ab ratione a commodi ad recusandae, atque dignissimos. Animi.
+                                Inventore similique, laboriosam porro, architecto consectetur quam libero, delectus recreate la computer corrupti error rem nesciunt! Architecto illum facilis accusamus earum soluta magnam minima explicabo aperiam? Nihil ducimus sequi iure, eum perferendis hic?
+                                A cum inventore unde minus nam velit aliquid, voluptates sit sequi veniam, eveniet necessitatibus officia learn binary praesentium explicabo temporibus tempore repellendus, optio iste sapiente incidunt nostrum quia deserunt soluta delectus. Architecto?
+                                Aliquam, perspiciatis earum. Asperiores quam ducimus, debitis mollitia cum deleniti molestiae assumenda eveniet similique vitae. Quae, dolores repudiandae. Ratione soluta similique suscipit aut expedita ipsa. Fugiat voluptatem veniam ut expedita?
+                                and then it'll work! Next time don't ask about such simple problems.
+                            </div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val object__btn">upVote</div>
+                            <div class=""></div>
+                        </div>
+                        <div class="object__prop-row">
+                            <div class="object__prop-val object__btn">downVote</div>
+                            <div class=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('partials/footer') %>

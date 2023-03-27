@@ -1,0 +1,112 @@
+<%- include('partials/header', { title: 'Question Form', extraStyle: '<link rel="stylesheet" href="../extrenal/css/prism.css">' }) %>
+    <div class="content-column">
+        <div class="object-block comment-block">
+            <div class="anonymous"></div>
+            <div>
+                <h3>How to include markup?</h3>
+                <div>type your code in between '```' like so:</div>
+                <div>```</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;code.stuff()</div>
+                <div>```</div>
+                To activate syntax highlighting, follow the opening tag with your language's file extension followed by a single space.
+
+                <div>```js&nbsp;</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;code.stuff()</div>
+                <div>```</div>
+
+                Languages supported: Javascript (js), Markup Languages (markup), CSS (css), C# (cs).
+            </div>
+        </div>
+        <div class="object-block">
+            <div>yourQuestion</div>
+            <div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">title</div>
+                    <div>
+                        <input type="text" id="questionTitle">
+                    </div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">questionContent</div>
+                    <div class="string question-content">
+                        <textarea class="question-input"></textarea>
+                    </div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val object__btn">submit</div>
+                    <div class=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="object-block">
+            <div>questionLook</div>
+            <div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">title</div>
+                    <h3 id="titleOutput"></h3>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">questionContent</div>
+                    <div class="string question-content">
+                        <div id="questionOutput"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const titleInput = document.querySelector('#questionTitle');
+        const titleOutput = document.querySelector('#titleOutput');
+        const questionInput = document.querySelector('.question-input');
+        const questionOutput = document.querySelector('#questionOutput');
+
+
+        titleInput.addEventListener('keypress', e => {
+            titleOutput.textContent = mirrorType(titleInput, e.key);
+        });
+        
+        questionInput.addEventListener('keypress', e => {
+            e.preventDefault();
+            const mousePos = questionInput.selectionStart;
+            questionInput.value = mirrorType(questionInput, e.key);
+            questionInput.setSelectionRange(mousePos+1, mousePos+1);
+
+            makeTextFancy();
+        });
+        
+        questionInput.addEventListener('change', makeTextFancy);
+        
+        function makeTextFancy () {
+            let inputText = questionInput.value, codeBlockChars = 0;
+            
+            inputText = inputText
+                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/```\w+ \n|```\w+ |```/g, match => {
+                    codeBlockChars++;
+
+                    const closeChar = codeBlockChars % 2 ? '' : '/';
+                    const tagsArr = [`<${closeChar}pre>`],
+
+                    language = closeChar ? '' : ` class="language-${match.slice(3)}"`;
+
+                    tagsArr[closeChar ? 'unshift' : 'push'](`<${closeChar}code${language}>`);
+
+                    return tagsArr.join('');
+            });
+
+            questionOutput.innerHTML = inputText;
+            questionOutput.innerHTML = Array.from(questionOutput.childNodes).map(child => child.nodeType === 3 ? child.textContent.replace(/\n/g, '</br>') : child.outerHTML).join('');
+            Prism.highlightAll();
+        }
+
+
+        function mirrorType (txtInput, key) {
+            let newStr = txtInput.value.split('');
+            newStr.splice(txtInput.selectionStart, 0, key === 'Enter' ? '\n' : key);
+            newStr = newStr.join('');
+
+            return newStr;
+        }
+    </script>
+    <script src="../extrenal/js/prism.js"></script>
+<%- include('partials/footer') %>

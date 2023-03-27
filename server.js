@@ -41,10 +41,18 @@ app.get('/', (req, res) => {
 			usefulness: 12,
 			answers: 2
 		},
-	]
+	];
+
 	res.render('index', {
 		questions: topQuestions
 	});
+});
+
+app.get('/questionform', (req, res) => {
+	res.render('questionForm');
+});
+app.get('/questionpage', (req, res) => {
+	res.render('questionPage');
 });
 
 app.use(express.static('webapp'));

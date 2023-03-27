@@ -7,8 +7,11 @@ const Question = new Schema({
         required: true,
         type: String
     },
-    content: {
+    questionText: {
         required: true,
+        type: String
+    },
+    questionMarkup: {
         type: String
     },
     usefulness: {
@@ -37,7 +40,7 @@ const Question = new Schema({
 function validateQuestion (question) {
     const schema = Joi.object({
         title: Joi.string().required(),
-        content: Joi.string.required()
+        questionText: Joi.string.required()
     });
 
     return schema.validate(question);
