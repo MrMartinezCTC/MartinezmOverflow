@@ -1,0 +1,41 @@
+<%- include('partials/header'); %>
+    <div class="content-column question-list">
+        <div class="object-block">
+            <div>Options</div>
+            <div class="object__prop-row">
+                <a href="./pages/questionform.html" class="object__prop-val object__btn">Ask Question</a>
+                <div class=""></div>
+            </div>
+        </div>
+        <div class="object-block arr-block">
+            <div>Questions</div>
+            <div>
+                <% questions.forEach(question => { %>
+                    <a class="object-block" href="./pages/questionPage.html">
+                        <div class="anonymous"></div>
+                        <div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">title</div>
+                                <h3><%= question.title %></h3>
+                            </div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">problem</div>
+                                <div class="string line-overflow"><%= question.problem %></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="object__prop-row">
+                                    <div class="object__prop-val">usefulness</div>
+                                    <div class="object__num"><%= question.usefulness %></div>
+                                </div>
+                                <div class="object__prop-row">
+                                    <div class="object__prop-val">answers</div>
+                                    <div class="object__num"><%= question.answers %></div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <% }); %>    
+            </div>
+        </div>
+    </div>
+<%- include('partials/footer'); %>
