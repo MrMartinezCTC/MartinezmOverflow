@@ -5,6 +5,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 
+
 router.post('/signup', async (req, res) => {
     let failMsg = '';
     
@@ -32,7 +33,12 @@ router.post('/signup', async (req, res) => {
     });
     await user.save();
 
-    user.token = generateAccessToken(user.email);
+    res.cookie('mrCookie', generateAccessToken(user.email), {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: (new Date ()).getMilliseconds() + 1000 * 86_400 * 30
+    });
     res.status(201).json(user);
 });
 
@@ -54,10 +60,14 @@ router.post('/login', async (req, res) => {
         msg: 'Invalid email/password'
     });
 
-
+    res.cookie('mrCookie', generateAccessToken(user.email), {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: (new Date ()).getMilliseconds() + 1000 * 86_400 * 30
+    });
     res.status(200).json({
         success: true,
-        token: generateAccessToken(req.body.email)
     });
 });
 
@@ -65,7 +75,6 @@ module.exports = router;
 
 
 function generateAccessToken(email) {
-    // console.log(process.env);
     return jwt.sign({ email }, process.env.SECRET, { expiresIn: '30d' });
 }
 

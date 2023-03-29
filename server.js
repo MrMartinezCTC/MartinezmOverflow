@@ -2,7 +2,9 @@ const express = require('express');
 const user = require('./controllers/users');
 const question = require('./controllers/questions');
 const InitiateMongoServer = require('./db');
+const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const { User } = require('./models/User');
 require('dotenv').config();
 
 
@@ -16,14 +18,30 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-// app.use('*', (req, res, next) => {
-// 	const token = req.headers.authorization.split(' ')[1];
-// 	if (token) {
-		
-// 	}
-// });
+app.use(express.static('webapp'));
+
+app.use(cookieParser());
+
+app.use(async (req, res, next) => {
+	const { mrCookie } = req.cookies;
+	if (!mrCookie) return next();
+
+	const elCookieObj = jwt.verify(mrCookie, process.env.SECRET);
+	if (typeof elCookieObj !== 'object') return next();
+
+	const email = elCookieObj.email;
+	if(!email) return next();
+
+	const user = await User.findOne({ email });
+	req.user = user;
+	return next();
+});
+
 
 app.get('/', (req, res) => {
+
+	console.log(req.user, 'hey yo...');
+
 	const topQuestions = [
 		{
 			title: 'Pain. Suffering. Agony.',
@@ -65,15 +83,10 @@ app.get('/questionpage', (req, res) => {
 	res.render('questionPage');
 });
 
-app.use(express.static('webapp'));
 app.use(express.json());
-
-
-
 
 app.use('/user', user);
 app.use('/question', question);
-
 
 
 
