@@ -24,8 +24,12 @@
             <span>)</span>
         </div>
         <div class="account-btns">
-            <button>Sign Up</button>
-            <button>Log In</button>
+            <% if (locals.user) { %>
+                <button>Log Out</button>
+            <% } else { %>
+                <button>Sign Up</button>
+                <button>Log In</button>
+            <% } %>
             <form class="account-pop-up object-block">
                 <div>Sign Up</div>
                 <div>

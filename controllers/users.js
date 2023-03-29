@@ -33,12 +33,7 @@ router.post('/signup', async (req, res) => {
     });
     await user.save();
 
-    res.cookie('mrCookie', generateAccessToken(user.email), {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: (new Date ()).getMilliseconds() + 1000 * 86_400 * 30
-    });
+    res.cookie(...setCookie());
     res.status(201).json(user);
 });
 
@@ -60,21 +55,35 @@ router.post('/login', async (req, res) => {
         msg: 'Invalid email/password'
     });
 
-    res.cookie('mrCookie', generateAccessToken(user.email), {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: (new Date ()).getMilliseconds() + 1000 * 86_400 * 30
-    });
+    res.cookie(...setCookie());
     res.status(200).json({
         success: true,
     });
 });
 
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('mrCookie');
+
+    res.status(200).json({
+        success: true
+    });
+});
+
+
 module.exports = router;
 
 
-function generateAccessToken(email) {
-    return jwt.sign({ email }, process.env.SECRET, { expiresIn: '30d' });
+function setCookie(email) {
+    return [
+        'mrCookie',
+        jwt.sign({ email }, process.env.SECRET, { expiresIn: '30d' }),
+        {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: (new Date ()).getMilliseconds() + 1000 * 86_400 * 30
+        }
+    ];
 }
 

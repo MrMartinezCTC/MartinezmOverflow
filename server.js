@@ -39,9 +39,6 @@ app.use(async (req, res, next) => {
 
 
 app.get('/', (req, res) => {
-
-	console.log(req.user, 'hey yo...');
-
 	const topQuestions = [
 		{
 			title: 'Pain. Suffering. Agony.',
@@ -72,15 +69,20 @@ app.get('/', (req, res) => {
 	];
 
 	res.render('index', {
-		questions: topQuestions
+		questions: topQuestions,
+		user: req.user
 	});
 });
 
 app.get('/questionform', (req, res) => {
-	res.render('questionForm');
+	res.render('questionForm', {
+		user: req.user
+	});
 });
 app.get('/questionpage', (req, res) => {
-	res.render('questionPage');
+	res.render('questionPage', {
+		user: req.user
+	});
 });
 
 app.use(express.json());
