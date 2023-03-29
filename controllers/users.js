@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require ('bcrypt');
 const { User, validateUser } = require('../models/User');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+
 
 router.post('/signup', async (req, res) => {
     let failMsg = '';
@@ -29,6 +31,8 @@ router.post('/signup', async (req, res) => {
         password: hash
     });
     await user.save();
+
+    user.token = generateAccessToken(user.email);
     res.status(201).json(user);
 });
 
@@ -42,11 +46,7 @@ router.post('/login', async (req, res) => {
     else {
         const passIsCorrect = await bcrypt.compare(req.body.password, user.password);
 
-        console.log(passIsCorrect);
-
         if (!passIsCorrect) failure = true;
-
-        // failure = !await bcrypt.compare(req.body.password, user.password);
     }
 
     if (failure) return res.status(400).json({
@@ -55,9 +55,17 @@ router.post('/login', async (req, res) => {
     });
 
 
-    res.status(200).json({ success: true });
+    res.status(200).json({
+        success: true,
+        token: generateAccessToken(req.body.email)
+    });
 });
 
 module.exports = router;
 
+
+function generateAccessToken(email) {
+    // console.log(process.env);
+    return jwt.sign({ email }, process.env.SECRET, { expiresIn: '30d' });
+}
 

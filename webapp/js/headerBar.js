@@ -45,7 +45,9 @@ accountForm.addEventListener('submit', e => {
     .then(res => res.json())
     .then(body => {
         if (!body.isError) {
-            return accountForm.style.display = 'none';
+            accountForm.style.display = 'none';
+            console.log(body);
+            return;
         }
         alert (body.msg);
     })

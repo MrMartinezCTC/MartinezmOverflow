@@ -2,6 +2,9 @@ const express = require('express');
 const user = require('./controllers/users');
 const question = require('./controllers/questions');
 const InitiateMongoServer = require('./db');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 InitiateMongoServer();
 
@@ -12,6 +15,13 @@ const HOST = '0.0.0.0';
 const app = express();
 
 app.set("view engine", "ejs");
+
+// app.use('*', (req, res, next) => {
+// 	const token = req.headers.authorization.split(' ')[1];
+// 	if (token) {
+		
+// 	}
+// });
 
 app.get('/', (req, res) => {
 	const topQuestions = [
@@ -57,6 +67,8 @@ app.get('/questionpage', (req, res) => {
 
 app.use(express.static('webapp'));
 app.use(express.json());
+
+
 
 
 app.use('/user', user);
