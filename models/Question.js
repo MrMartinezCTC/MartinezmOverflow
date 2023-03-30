@@ -26,6 +26,9 @@ const Question = new Schema({
     answers: {
         type: Array
     },
+    tags: {
+        type: Array
+    },
     dateAsked: {
         type: Date
     },

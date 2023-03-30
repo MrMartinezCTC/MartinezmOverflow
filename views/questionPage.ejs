@@ -39,31 +39,22 @@
             <div>
                 <div class="object__prop-row">
                     <div class="object__prop-val">usefulness</div>
-                    <div class="object__num">12</div>
+                    <div class="object__num"><%= questionObj.usefulness %></div>
                 </div>
                 <div class="object__prop-row">
                     <div class="object__prop-val">problem</div>
                     <div class="string question-content">
-                        <div id="questionOutput"><br>Help! This code is no good.<br><br><pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">"Jeff"</span><span class="token punctuation">;</span>
-
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    </code></pre><br><br>Just look at this horrendous c#...<br><pre class="language-cs" tabindex="0"><code class="language-cs"><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span></span> things <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"book"</span><span class="token punctuation">,</span> <span class="token string">"car"</span><span class="token punctuation">,</span> <span class="token char">'u'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>things<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    </code></pre><br><br>or this terrible html<br><pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!Doctype</span><span class="token punctuation">&gt;</span></span>
-
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>butter-fingers<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span><span class="token punctuation">&gt;</span></span>good?<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span>
-    </code></pre><br><br><br>At least it's not as bad as Mario's Python...<br></div>
+                        <div id="questionOutput">
+                            <%-questionObj.questionMarkup%>
+                        </div>
                     </div>
                 </div>
                 <div class="object__prop-row">
                     <div class="object__prop-val">tags</div>
                     <div class="object__val-arr">
-                        <div>C#</div>
-                        <div>Programming</div>
-                        <div>Arrays</div>
+                        <% questionObj.tags.forEach(tag => { %>
+                            <div><%= tag %></div>
+                        <% }); %>
                     </div>
                 </div>
                 <div class="object__prop-row">
