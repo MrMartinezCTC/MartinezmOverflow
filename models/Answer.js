@@ -7,6 +7,19 @@ const Answer = new Schema({
         required: true,
         type: String
     },
+    usefulness: {
+        default: 0,
+        type: Number
+    },
+    questionId: {
+        type: String
+    },
+    userId: {
+        type: String
+    },
+    user: {
+        type: String
+    }
 },{
     collection: 'answers'
 });

@@ -16,21 +16,27 @@ const Question = new Schema({
         type: String
     },
     usefulness: {
+        default: 0,
         type: Number
     },
     views: {
+        default: 0,
         type: Number
     },
     answers: {
-        type: Number
+        type: Array
     },
     dateAsked: {
         type: Date
     },
     accepted: {
+        default: false,
         type: Boolean
     },
     userId: {
+        type: String
+    },
+    user: {
         type: String
     }
 },{

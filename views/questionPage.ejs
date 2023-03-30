@@ -10,11 +10,14 @@
                 <div class="flex-row">
                     <div class="object__prop-row">
                         <div class="object__prop-val">user</div>
-                        <div><%= questionObj.username %></div>
+                        <div><%= questionObj.user %></div>
                     </div>
                     <div class="object__prop-row">
                         <div class="object__prop-val">asked</div>
-                        <div><%= questionObj.dateAsked %></div>
+                        <div id="questionDate"><%= questionObj.dateAsked %></div>
+                        <script>
+                            questionDate.textContent = (new Date (questionDate.textContent)).toLocaleString()
+                        </script>
                     </div>
                     <div class="object__prop-row">
                         <div class="object__prop-val">answers</div>
@@ -26,7 +29,7 @@
                     </div>
                     <div class="object__prop-row">
                         <div class="object__prop-val">timesViewed</div>
-                        <div class="object__num"><%= questionObj.timesViewed %></div>
+                        <div class="object__num"><%= questionObj.views %></div>
                     </div>
                 </div>
             </div>
@@ -170,4 +173,5 @@
             </div>
         </div>
     </div>
+    <script src="../js/answerForm.js"></script>
 <%- include('partials/footer') %>

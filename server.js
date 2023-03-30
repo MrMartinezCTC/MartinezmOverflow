@@ -5,6 +5,8 @@ const InitiateMongoServer = require('./db');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const { User } = require('./models/User');
+const { Question } = require('./models/Question');
+const { Answer } = require('./models/Answer');
 require('dotenv').config();
 
 
@@ -80,9 +82,15 @@ app.get('/questionform', (req, res) => {
 		user: req.user
 	});
 });
-app.get('/questionpage', (req, res) => {
+
+app.get('/questionpage', async (req, res) => {
+	const theSingleQuestion =  await Question.findById('6421a465936e30a68a52125e');
+	theSingleQuestion.answers = await Answer.where({ questionId: theSingleQuestion._id });
+
+	
 	res.render('questionPage', {
-		user: req.user
+		user: req.user,
+		questionObj: theSingleQuestion
 	});
 });
 
