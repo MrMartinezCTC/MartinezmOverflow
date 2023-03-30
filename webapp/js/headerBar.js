@@ -38,7 +38,7 @@ accountForm.addEventListener('submit', e => {
         objToSend.lastName = document.getElementById('lastName').value;
     }
 
-    sendRequest('POST', route, objToSend);
+    sendRequest('POST', route, JSON.stringify(objToSend));
 });
 
 function sendRequest (method, route, body) {

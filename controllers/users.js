@@ -33,14 +33,13 @@ router.post('/signup', async (req, res) => {
     });
     await user.save();
 
-    res.cookie(...setCookie());
+    res.cookie(...setCookie(req.body.email));
     res.status(201).json(user);
 });
 
 
 router.post('/login', async (req, res) => {
     let failure = false;
-    console.log(req.body);
 
     const user = await User.findOne({ email: req.body.email });
     if (!user) failure = true;
@@ -55,7 +54,7 @@ router.post('/login', async (req, res) => {
         msg: 'Invalid email/password'
     });
 
-    res.cookie(...setCookie());
+    res.cookie(...setCookie(req.body.email));
     res.status(200).json({
         success: true,
     });

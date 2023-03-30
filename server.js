@@ -33,6 +33,7 @@ app.use(async (req, res, next) => {
 	if(!email) return next();
 
 	const user = await User.findOne({ email });
+
 	req.user = user;
 	return next();
 });
