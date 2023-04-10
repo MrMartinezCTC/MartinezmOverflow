@@ -84,15 +84,16 @@ app.get('/questionform', (req, res) => {
 });
 
 app.get('/questionpage', async (req, res) => {
-	const theSingleQuestion =  await Question.findById('6421a465936e30a68a52125e');
-	theSingleQuestion.answers = await Answer.where({ questionId: theSingleQuestion._id });
-
+	const theSingleQuestion = await Question.findById('6421a465936e30a68a52125e');
+	theSingleQuestion.answers = await Answer.find({ questionId: theSingleQuestion._id }).exec();
+	
 	
 	res.render('questionPage', {
 		user: req.user,
 		questionObj: theSingleQuestion
 	});
 });
+
 
 app.use(express.json());
 
@@ -103,4 +104,3 @@ app.use('/question', question);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
-

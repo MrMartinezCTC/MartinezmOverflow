@@ -11,12 +11,6 @@ const Answer = new Schema({
         default: 0,
         type: Number
     },
-    questionId: {
-        type: String
-    },
-    userId: {
-        type: String
-    },
     user: {
         type: String
     }

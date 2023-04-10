@@ -36,9 +36,6 @@ const Question = new Schema({
         default: false,
         type: Boolean
     },
-    userId: {
-        type: String
-    },
     user: {
         type: String
     }

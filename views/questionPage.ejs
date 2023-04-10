@@ -93,74 +93,33 @@
         <div class="object-block arr-block">
             <div>Answers</div>
             <div>
-                <div class="object-block">
-                    <div class="anonymous"></div>
-                    <div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">user</div>
-                            <div>Hunter Morningstar</div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">usefulness</div>
-                            <div class="object__num">15</div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">solution</div>
-                            <div>Your code no work because your code is bad. very bad.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ex minus quidem, labore possimus sapiente voluptatum perspiciatis. Nihil deleniti deserunt, iste possimus illo aut recusandae modi ad consequatur? Quod, saepe.
-                                Rerum molestiae aut perspiciatis placeat repudiandae non quae quo soluta minima consequatur blanditiis veniam debitis provident obcaecati eligendi et doloremque fugit ab ratione a commodi ad recusandae, atque dignissimos. Animi.
-                                Inventore similique, laboriosam porro, architecto consectetur quam libero, delectus corrupti error rem nesciunt! Architecto illum facilis accusamus earum soluta magnam minima explicabo aperiam? Nihil ducimus sequi iure, eum perferendis hic?
-                                A cum inventore unde minus nam velit aliquid, voluptates sit sequi veniam, eveniet necessitatibus officia praesentium explicabo temporibus tempore repellendus, optio iste sapiente incidunt nostrum quia deserunt soluta delectus. Architecto?
-                                Aliquam, perspiciatis earum. Asperiores quam ducimus, debitis mollitia cum deleniti molestiae assumenda eveniet similique vitae. Quae, dolores repudiandae. Ratione soluta similique suscipit aut expedita ipsa. Fugiat voluptatem veniam ut expedita?
-                                so in conclusion, use a list. (also your dumb)
+                <% questionObj.answers.forEach(answerObj => { %>
+                    <div class="object-block">
+                        <div class="anonymous"></div>
+                        <div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">user</div>
+                                <div><%= answerObj.user %></div>
+                            </div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">usefulness</div>
+                                <div class="object__num"><%= answerObj.usefulness  %></div>
+                            </div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">solution</div>
+                                <div><%= answerObj.content %></div>
+                            </div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val object__btn">upVote</div>
+                                <div class=""></div>
+                            </div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val object__btn">downVote</div>
+                                <div class=""></div>
                             </div>
                         </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val object__btn">upVote</div>
-                            <div class=""></div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val object__btn">downVote</div>
-                            <div class=""></div>
-                        </div>
                     </div>
-                </div>
-                <div class="object-block">
-                    <div class="anonymous"></div>
-                    <div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">user</div>
-                            <div>Gabe Miller</div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">accepted</div>
-                            <div class="object__keyword">true</div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">usefulness</div>
-                            <div class="object__num">5</div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val">solution</div>
-                            <div>I see your problem and I have a solution, but first, you're going need to hack into nasa.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ex minus quidem, labore possimus sapiente voluptatum perspiciatis. Nihil deleniti deserunt, iste possimus illo aut recusandae modi ad consequatur? Quod, saepe.
-                                Rerum molestiae aut perspiciatis placeat repudiandae non quae quo soluta minima consequatur findus a complierus blanditiis veniam debitis provident obcaecati eligendi et doloremque fugit ab ratione a commodi ad recusandae, atque dignissimos. Animi.
-                                Inventore similique, laboriosam porro, architecto consectetur quam libero, delectus recreate la computer corrupti error rem nesciunt! Architecto illum facilis accusamus earum soluta magnam minima explicabo aperiam? Nihil ducimus sequi iure, eum perferendis hic?
-                                A cum inventore unde minus nam velit aliquid, voluptates sit sequi veniam, eveniet necessitatibus officia learn binary praesentium explicabo temporibus tempore repellendus, optio iste sapiente incidunt nostrum quia deserunt soluta delectus. Architecto?
-                                Aliquam, perspiciatis earum. Asperiores quam ducimus, debitis mollitia cum deleniti molestiae assumenda eveniet similique vitae. Quae, dolores repudiandae. Ratione soluta similique suscipit aut expedita ipsa. Fugiat voluptatem veniam ut expedita?
-                                and then it'll work! Next time don't ask about such simple problems.
-                            </div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val object__btn">upVote</div>
-                            <div class=""></div>
-                        </div>
-                        <div class="object__prop-row">
-                            <div class="object__prop-val object__btn">downVote</div>
-                            <div class=""></div>
-                        </div>
-                    </div>
-                </div>
+                <% }); %>
             </div>
         </div>
     </div>
