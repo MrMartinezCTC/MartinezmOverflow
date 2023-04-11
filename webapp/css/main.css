@@ -27,6 +27,9 @@ body::after {
 }
 
 
+h1 { font-size: 1.75em; }
+
+
 a {
     text-decoration: none;
 }

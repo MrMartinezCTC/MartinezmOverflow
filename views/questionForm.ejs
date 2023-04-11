@@ -115,7 +115,7 @@
             const body = JSON.stringify({
                 title: titleInput.value,
                 questionText: questionInput.value,
-                questionMarkup: questionOutput.textContent
+                questionMarkup: questionOutput.innerHTML
             });
 
             fetch(`/question/upload`, {
