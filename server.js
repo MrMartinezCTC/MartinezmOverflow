@@ -80,10 +80,16 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/questionform', (req, res) => {
-	res.render('questionForm', {
-		user: req.user
+	const user = req.user;
+
+	if (!user) return res.status(401).render('error', {
+		status: 401,
+		issue: 'You must be logged in to post a question.'
 	});
+
+	res.render('questionForm', { user });
 });
+
 
 app.get('/questionpage', async (req, res) => {
 	async function getQuestion (id) {

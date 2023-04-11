@@ -1,0 +1,17 @@
+<%- include('partials/header', { title: 'Error Page' }) %>
+    <div class="content-column">
+        <div style="width: unset; padding: 1em; font-size: 1.5em;" class="object-block">
+            <div>Problem</div>
+            <div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">status</div>
+                    <div class="object__num"><%= status %></div>
+                </div>
+                <div class="object__prop-row">
+                    <div class="object__prop-val">issue</div>
+                    <div><%= issue %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('partials/footer') %>

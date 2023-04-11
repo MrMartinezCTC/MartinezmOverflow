@@ -12,8 +12,9 @@ router.post('/upload', async (req, res) => {
     const questionObj = { ... req.body };
 
     questionObj.dateAsked = (new Date ()).toUTCString();
-
-    console.log(questionObj);
+    
+    const user = req.user;
+    questionObj.user = `${user.firstName} ${user.lastName}`;
 
     await Question.create(questionObj);
 
