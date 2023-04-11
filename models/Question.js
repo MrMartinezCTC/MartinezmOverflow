@@ -47,8 +47,8 @@ const Question = new Schema({
 function validateQuestion (question) {
     const schema = Joi.object({
         title: Joi.string().required(),
-        questionText: Joi.string.required(),
-        questionMarkup: Joi.string.required()
+        questionText: Joi.string().required(),
+        questionMarkup: Joi.string().required()
     });
 
     return schema.validate(question);

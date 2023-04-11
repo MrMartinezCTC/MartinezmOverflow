@@ -1,5 +1,5 @@
 const express = require('express');
-const { validateQuestion } = require('../models/Question');
+const { validateQuestion, Question } = require('../models/Question');
 const router = express.Router();
 
 router.post('/upload', async (req, res) => {
@@ -13,8 +13,14 @@ router.post('/upload', async (req, res) => {
 
     questionObj.dateAsked = (new Date ()).toUTCString();
 
+    console.log(questionObj);
 
-    // res.status(200).json('not set up');
+    await Question.create(questionObj);
+
+
+    res.status(200).json({
+        success: true
+    });
 });
 
 module.exports = router;

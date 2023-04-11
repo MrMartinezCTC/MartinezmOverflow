@@ -19,7 +19,7 @@
         </div>
         <div class="object-block">
             <div>yourQuestion</div>
-            <div>
+            <form id="qstnForm">
                 <div class="object__prop-row">
                     <div class="object__prop-val">title</div>
                     <div>
@@ -33,10 +33,10 @@
                     </div>
                 </div>
                 <div class="object__prop-row">
-                    <div class="object__prop-val object__btn">submit</div>
+                    <button class="object__prop-val object__btn">submit</button>
                     <div class=""></div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="object-block">
             <div>questionLook</div>
@@ -107,6 +107,35 @@
 
             return newStr;
         }
+
+
+        document.getElementById('qstnForm').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const body = JSON.stringify({
+                title: titleInput.value,
+                questionText: questionInput.value,
+                questionMarkup: questionOutput.textContent
+            });
+
+            fetch(`/question/upload`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body
+            })
+            .then(res => res.json())
+            .then(body => {
+                if (!body.isError) return location.href = '/';
+                alert (body.msg);
+            })
+            .catch(err => {
+                console.log('Can not connect to server. :/');
+                console.log(err);
+            });
+        });
+
     </script>
     <script src="../extrenal/js/prism.js"></script>
 <%- include('partials/footer') %>

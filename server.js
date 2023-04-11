@@ -41,35 +41,37 @@ app.use(async (req, res, next) => {
 });
 
 
-app.get('/', (req, res) => {
-	const topQuestions = [
-		{
-			title: 'Pain. Suffering. Agony.',
-			problem: `
-				AAAAAAAGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!
-				My code does not work even though I told it to. I hate this. Computers are stupid. We need to get back to the basics. People should not live this way.
-			`,
-			usefulness: 300,
-			answers: 4
-		},
-		{
-			title: 'How to create an array without knowing the length in C#?',
-			problem: `
-			I need to dynamically create an array where I won't know its length and stuff you know? It would just be so great to be able to do that. Like it would just be incedibly wodnerful. I would have unlimited power and it would just be great. I have tried, but c# just doesnt let me. It is limiting me. Help me! I demand it.
-			`,
-			usefulness: 30,
-			answers: 3
-		},
-		{
-			title: 'Pain. Suffering. Agony.',
-			problem: `
-				AAAAAAAGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!
-				My code does not work even though I told it to. I hate this. Computers are stupid. We need to get back to the basics. People should not live this way.
-			`,
-			usefulness: 12,
-			answers: 2
-		},
-	];
+app.get('/', async (req, res) => {
+	// const topQuestions = [
+	// 	{
+	// 		title: 'Pain. Suffering. Agony.',
+	// 		problem: `
+	// 			AAAAAAAGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!
+	// 			My code does not work even though I told it to. I hate this. Computers are stupid. We need to get back to the basics. People should not live this way.
+	// 		`,
+	// 		usefulness: 300,
+	// 		answers: 4
+	// 	},
+	// 	{
+	// 		title: 'How to create an array without knowing the length in C#?',
+	// 		problem: `
+	// 		I need to dynamically create an array where I won't know its length and stuff you know? It would just be so great to be able to do that. Like it would just be incedibly wodnerful. I would have unlimited power and it would just be great. I have tried, but c# just doesnt let me. It is limiting me. Help me! I demand it.
+	// 		`,
+	// 		usefulness: 30,
+	// 		answers: 3
+	// 	},
+	// 	{
+	// 		title: 'Pain. Suffering. Agony.',
+	// 		problem: `
+	// 			AAAAAAAGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!
+	// 			My code does not work even though I told it to. I hate this. Computers are stupid. We need to get back to the basics. People should not live this way.
+	// 		`,
+	// 		usefulness: 12,
+	// 		answers: 2
+	// 	},
+	// ];
+
+	const topQuestions = await Question.find();
 
 	res.render('index', {
 		questions: topQuestions,
@@ -84,14 +86,21 @@ app.get('/questionform', (req, res) => {
 });
 
 app.get('/questionpage', async (req, res) => {
-	const theSingleQuestion = await Question.findById('6421a465936e30a68a52125e');
-	theSingleQuestion.answers = await Answer.find({ questionId: theSingleQuestion._id }).exec();
+	async function getQuestion (id) {
+		let theQuestion;
+		if (id) theQuestion = await Question.findById(id);
+		
+		if (!theQuestion) return { questionNotFound: true }
 	
-	
-	res.render('questionPage', {
-		user: req.user,
-		questionObj: theSingleQuestion
-	});
+		theQuestion.answers = await Answer.find({ questionId: theQuestion._id }).exec();
+
+		return { questionObj: theQuestion }
+	}
+
+	const details = await getQuestion(req.query.id);
+	details.user = req.user;
+
+	res.render('questionPage', details);
 });
 
 
