@@ -15,3 +15,29 @@ toggleLengthBtn.addEventListener('click', () => {
 
     toggleLengthBtn.textContent = hidden ? 'expand' : 'condense';
 })
+
+
+answerFormContainer.addEventListener('submit', e => {
+    e.preventDefault();
+
+    fetch(`/answer/upload`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            content: answerFormInput.value,
+            id: location.href.split('?')[1]
+        })
+    })
+    .then(res => res.json())
+    .then(body => {
+        if (!body.isError) return location.reload(true);
+        alert (body.message);
+    })
+    .catch(err => {
+        console.log('Can not connect to server. :/');
+        console.log(err);
+    });
+});
+
