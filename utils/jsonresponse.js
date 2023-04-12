@@ -2,7 +2,7 @@
 
 export const sendError = (res, status, message) => {
     res.status(status).json({
-        error: true,
+        isError: true,
         message
     })
 }

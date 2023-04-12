@@ -1,6 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const user = require('./controllers/users');
 const question = require('./controllers/questions');
+const answer = require('./controllers/answers');
 const InitiateMongoServer = require('./db');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
@@ -114,6 +116,7 @@ app.use(express.json());
 
 app.use('/user', user);
 app.use('/question', question);
+app.use('/answer', answer);
 
 
 
