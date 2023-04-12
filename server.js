@@ -92,21 +92,21 @@ app.get('/questionform', (req, res) => {
 
 
 app.get('/questionpage', async (req, res) => {
-	async function getQuestion (id) {
-		let theQuestion;
-		if (id) theQuestion = await Question.findById(id);
-		
-		if (!theQuestion) return { questionNotFound: true }
 	
-		theQuestion.answers = await Answer.find({ questionId: theQuestion._id }).exec();
+	let theQuestion, id = req.query.id;
+	if (id) theQuestion = await Question.findById(id);
+	
+	if (!theQuestion) return res.status(404).render('error', {
+		status: 404,
+		issue: 'The question requested does not exist.'
+	})
 
-		return { questionObj: theQuestion }
-	}
+	theQuestion.answers = await Answer.find({ questionId: theQuestion._id }).exec();
 
-	const details = await getQuestion(req.query.id);
-	details.user = req.user;
-
-	res.render('questionPage', details);
+	res.render('questionPage', {
+		user: req.user,
+		questionObj: theQuestion
+	});
 });
 
 
