@@ -13,6 +13,9 @@ const Answer = new Schema({
     },
     user: {
         type: String
+    },
+    date: {
+        type: Date
     }
 },{
     collection: 'answers'
