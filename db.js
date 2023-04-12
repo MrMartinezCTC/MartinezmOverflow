@@ -1,5 +1,4 @@
-
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const MONGOURI = "mongodb+srv://jodi229:c4B8xhva@cluster0.zkfhtus.mongodb.net/martinezMoverflow?retryWrites=true&w=majority";
 
@@ -15,4 +14,5 @@ const InitiateMongoServer = async () => {
   }
 };
 
-module.exports = InitiateMongoServer;
+// module.exports = InitiateMongoServer;
+export default InitiateMongoServer;

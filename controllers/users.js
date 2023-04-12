@@ -1,10 +1,9 @@
-const express = require('express');
-const bcrypt = require ('bcrypt');
-const { User, validateUser } = require('../models/User');
+import express from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { User, validateUser } from '../models/User.js';
+
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-
-
 
 router.post('/signup', async (req, res) => {
     let failMsg = '';
@@ -70,9 +69,6 @@ router.get('/logout', (req, res) => {
 });
 
 
-module.exports = router;
-
-
 function setCookie(email) {
     return [
         'mrCookie',
@@ -86,3 +82,5 @@ function setCookie(email) {
     ];
 }
 
+// module.exports = router;
+export default router;

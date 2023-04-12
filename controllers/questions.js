@@ -1,6 +1,8 @@
-const express = require('express');
-const { validateQuestion, Question } = require('../models/Question');
+import express from 'express';
+import { validateQuestion, Question } from '../models/Question.js';
+
 const router = express.Router();
+
 
 router.post('/upload', async (req, res) => {
     const { error } = validateQuestion(req.body);
@@ -24,6 +26,6 @@ router.post('/upload', async (req, res) => {
     });
 });
 
-module.exports = router;
-
+// module.exports = router;
+export default router;
 

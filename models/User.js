@@ -1,8 +1,10 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+import Joi from 'joi';
+import mongoose from 'mongoose';
+
+
 const Schema = mongoose.Schema;
 
-const User = new Schema({
+const UserSchema = new Schema({
     email: {
         maxLength: 50,
         required: true,
@@ -30,7 +32,7 @@ const User = new Schema({
 });
 
 
-function validateUser(user) {
+export function validateUser(user) {
     const schema = Joi.object({
         firstName: Joi.string().max(20).required(),
         lastName: Joi.string().max(20).required(),
@@ -41,6 +43,5 @@ function validateUser(user) {
     return schema.validate(user);
 }
 
+export const User = mongoose.model('users', UserSchema);
 
-exports.User = mongoose.model('users', User);
-exports.validateUser = validateUser;

@@ -1,8 +1,9 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+import Joi from 'joi';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
-const Answer = new Schema({
+const AnswerSchema = new Schema({
     content: {
         required: true,
         type: String
@@ -22,7 +23,7 @@ const Answer = new Schema({
 });
 
 
-function validateAnswer(answer) {
+export function validateAnswer(answer) {
     const schema = Joi.object({
         content: Joi.string().required()
     });
@@ -31,5 +32,4 @@ function validateAnswer(answer) {
 }
 
 
-exports.Answer = mongoose.model('answers', Answer);
-exports.validateAnswer = validateAnswer;
+export const Answer = mongoose.model('answers', AnswerSchema);

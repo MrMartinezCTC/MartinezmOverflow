@@ -1,15 +1,16 @@
 import express from 'express';
+import user from './controllers/users.js';
+import question from './controllers/questions.js';
+import answer from './controllers/answers.js';
+import InitiateMongoServer from './db.js';
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
+import { User } from './models/User.js';
+import { Question } from './models/Question.js';
+import { Answer } from './models/Answer.js';
 
-const user = require('./controllers/users');
-const question = require('./controllers/questions');
-const answer = require('./controllers/answers');
-const InitiateMongoServer = require('./db');
-const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
-const { User } = require('./models/User');
-const { Question } = require('./models/Question');
-const { Answer } = require('./models/Answer');
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 InitiateMongoServer();
@@ -44,35 +45,6 @@ app.use(async (req, res, next) => {
 
 
 app.get('/', async (req, res) => {
-	// const topQuestions = [
-	// 	{
-	// 		title: 'Pain. Suffering. Agony.',
-	// 		problem: `
-	// 			AAAAAAAGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!
-	// 			My code does not work even though I told it to. I hate this. Computers are stupid. We need to get back to the basics. People should not live this way.
-	// 		`,
-	// 		usefulness: 300,
-	// 		answers: 4
-	// 	},
-	// 	{
-	// 		title: 'How to create an array without knowing the length in C#?',
-	// 		problem: `
-	// 		I need to dynamically create an array where I won't know its length and stuff you know? It would just be so great to be able to do that. Like it would just be incedibly wodnerful. I would have unlimited power and it would just be great. I have tried, but c# just doesnt let me. It is limiting me. Help me! I demand it.
-	// 		`,
-	// 		usefulness: 30,
-	// 		answers: 3
-	// 	},
-	// 	{
-	// 		title: 'Pain. Suffering. Agony.',
-	// 		problem: `
-	// 			AAAAAAAGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!
-	// 			My code does not work even though I told it to. I hate this. Computers are stupid. We need to get back to the basics. People should not live this way.
-	// 		`,
-	// 		usefulness: 12,
-	// 		answers: 2
-	// 	},
-	// ];
-
 	const topQuestions = await Question.find();
 
 	res.render('index', {

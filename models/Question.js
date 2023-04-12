@@ -1,8 +1,9 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+import Joi from 'joi';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
-const Question = new Schema({
+const QuestionSchema = new Schema({
     title: {
         required: true,
         type: String
@@ -44,7 +45,7 @@ const Question = new Schema({
 });
 
 
-function validateQuestion (question) {
+export function validateQuestion (question) {
     const schema = Joi.object({
         title: Joi.string().required(),
         questionText: Joi.string().required(),
@@ -55,5 +56,4 @@ function validateQuestion (question) {
 }
 
 
-exports.Question = mongoose.model('questions', Question);
-exports.validateQuestion = validateQuestion;
+export const Question = mongoose.model('questions', QuestionSchema);

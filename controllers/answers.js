@@ -1,7 +1,8 @@
-const express = require('express');
-const { validateAnswer, Answer } = require('../models/Answer');
-const { sendError } = require('../utils/jsonresponse');
-const { Question } = require('../models/Question');
+import express from 'express';
+import { validateAnswer, Answer } from '../models/Answer.js';
+import { sendError } from '../utils/jsonresponse.js';
+import { Question } from '../models/Question.js';
+
 const router = express.Router();
 
 router.post('/upload', async (req, res) => {
@@ -31,5 +32,5 @@ router.post('/upload', async (req, res) => {
     });
 });
 
-module.exports = router;
-
+// module.exports = router;
+export default router;
