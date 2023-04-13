@@ -27,7 +27,7 @@ answerFormContainer.addEventListener('submit', e => {
         },
         body: JSON.stringify({
             content: answerFormInput.value,
-            id: location.href.split('?')[1]
+            id: location.href.split('=')[1]
         })
     })
     .then(res => res.json())
