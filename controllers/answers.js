@@ -28,7 +28,7 @@ router.post('/upload', async (req, res) => {
     
     answerObj.user = `${user.firstName} ${user.lastName}`;
     answerObj.date = (new Date ()).toUTCString();
-    answerObj.questionId = id;
+    answerObj.questionId = new ObjectId(id);
 
     await Answer.create(answerObj);
 

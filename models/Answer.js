@@ -19,7 +19,7 @@ const AnswerSchema = new Schema({
         type: Date
     },
     questionId: {
-        type: String
+        type: Object
     }
 },{
     collection: 'answers'

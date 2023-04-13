@@ -19,10 +19,10 @@
                             questionDate.textContent = (new Date (questionDate.textContent)).toLocaleString()
                         </script>
                     </div>
-                    <!-- <div class="object__prop-row">
+                    <div class="object__prop-row">
                         <div class="object__prop-val">answers</div>
-                        <div class="object__num"><=// questionObj.answers.length %></div>
-                    </div> -->
+                        <div class="object__num"><%= questionObj.answers.length %></div>
+                    </div>
                     <div class="object__prop-row">
                         <div class="object__prop-val">accepted</div>
                         <div class="object__keyword"><%= questionObj.accepted %></div>
@@ -94,7 +94,7 @@
             <div>Answers</div>
             <div>
                 <% questionObj.answers.forEach(answerObj => { %>
-                    <div class="object-block">
+                    <div class="object-block" data-doc-id="<%= answerObj._id.toString() %>">
                         <div class="anonymous"></div>
                         <div>
                             <div class="object__prop-row">
