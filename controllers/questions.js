@@ -1,5 +1,6 @@
 import express from 'express';
 import { validateQuestion, Question } from '../models/Question.js';
+import { getDoc, sendError } from '../utils/jsonresponse.js';
 
 const router = express.Router();
 
@@ -20,11 +21,25 @@ router.post('/upload', async (req, res) => {
 
     await Question.create(questionObj);
 
-
     res.status(200).json({
         success: true
     });
 });
+
+
+router.patch('/updateUsefulness', (req, res) => updateUsefulness(req, res, Question));
+
+
+export const updateUsefulness = async (req, res, Model) => {
+    const doc = await getDoc(req.body.id, Model);
+    if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
+
+    doc.usefulness += change;
+    
+    await doc.save();
+
+    return res.status(204).json({ success: true });
+}
 
 // module.exports = router;
 export default router;
