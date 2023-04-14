@@ -61,11 +61,13 @@ document.querySelectorAll('.votable-block').forEach(block => block.addEventListe
         },
         body: JSON.stringify({ add, id: block.dataset.docId })
     })
-    .then(res => {
+    .then(async res => {
         if (res.status === 204) {
             const usefulnessEl = block.querySelector('.js-usefulness');
             usefulnessEl.textContent = usefulnessEl.textContent * 1 + 1 * (add ? 1 : -1);
+            return;
         }
+        displayError(res.status, (await res.json()).message);
     })
     .catch(err => {
         console.log('Can not connect to server. :/');

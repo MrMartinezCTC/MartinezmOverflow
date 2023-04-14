@@ -26,6 +26,8 @@ router.patch('/updateUsefulness', (req, res) => updateUsefulness(req, res, Quest
 
 
 export const updateUsefulness = async (req, res, Model) => {
+    if (!req.user) return sendError(res, 401, 'Must be signed in to vote.');
+
     const doc = await getDoc(req.body.id, Model);
     if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
 
