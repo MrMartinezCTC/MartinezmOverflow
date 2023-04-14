@@ -31,8 +31,7 @@ export const updateUsefulness = async (req, res, Model) => {
     const doc = await getDoc(req.body.id, Model);
     if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
 
-    const change = req.body.add ? 1 : -1;
-    doc.usefulness += change;
+    doc.usefulness += req.body.add ? 1 : -1;
     
     await doc.save();
 

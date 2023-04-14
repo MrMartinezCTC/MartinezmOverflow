@@ -195,7 +195,7 @@
     color: var(--object-keyword-color);
 }
 .object__btn + div::after {
-    content: " () {...}";
+    content: " () {...},";
     color: var(--object-text-color);
 }
 
