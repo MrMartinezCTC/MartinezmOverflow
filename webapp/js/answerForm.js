@@ -20,6 +20,8 @@ toggleLengthBtn.addEventListener('click', () => {
 answerFormContainer.addEventListener('submit', e => {
     e.preventDefault();
 
+    let status;
+
     fetch(`/answer/upload`, {
         method: 'POST',
         headers: {
@@ -30,10 +32,13 @@ answerFormContainer.addEventListener('submit', e => {
             id: location.href.split('=')[1]
         })
     })
-    .then(res => res.json())
+    .then(res => {
+        status = res.status;
+        return res.json();
+    })
     .then(body => {
         if (!body.isError) return location.reload(true);
-        alert (body.message);
+        errorMsg(status, body.message);
     })
     .catch(err => {
         console.log('Can not connect to server. :/');
@@ -49,15 +54,12 @@ document.querySelectorAll('.votable-block').forEach(block => block.addEventListe
 
     const add = btn.textContent.includes('up');
 
-    fetch(`/answer/updateUsefulness`, {
+    fetch(`/${block.className.includes('question') ? 'question' : 'answer'}/updateUsefulness`, {
         method: 'PATCH',
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            add,
-            id: block.dataset.docId
-        })
+        body: JSON.stringify({ add, id: block.dataset.docId })
     })
     .then(res => {
         if (res.status === 204) {

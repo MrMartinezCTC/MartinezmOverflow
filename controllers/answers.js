@@ -1,6 +1,6 @@
 import express from 'express';
 import { validateAnswer, Answer } from '../models/Answer.js';
-import { sendError } from '../utils/jsonresponse.js';
+import { sendError, validateId } from '../utils/jsonresponse.js';
 import { Question } from '../models/Question.js';
 import { updateUsefulness } from './questions.js';
 import mongoose from 'mongoose';
@@ -20,12 +20,7 @@ router.post('/upload', async (req, res) => {
     
     if (!user) return sendError(res, 401, "Must be logged in to answer a question.");
     if (!id) return sendError(res, 400, "Must supply a question id to answer a question.");
-    if(
-        !ObjectId.isValid(id) ||
-        // (new ObjectId(id) !== id) ||
-        !(await Question.exists({ _id: id }))
-    ) return sendError(res, 400, "The question id supplied does not exist.");
-
+    if (!validateId(id)) return sendError(res, 400, "The question id supplied does not exist.");
     
     answerObj.user = `${user.firstName} ${user.lastName}`;
     answerObj.date = (new Date ()).toUTCString();

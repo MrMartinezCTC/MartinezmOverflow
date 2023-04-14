@@ -272,6 +272,17 @@ button { cursor: pointer; }
 .username-row input { width: 7em; }
 
 
+/**************error pop up************/
+
+.error-pop-up {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    
+}
+
+
 @media only screen and (max-width: 85em) {
     .search-box {
         margin-right: unset;
