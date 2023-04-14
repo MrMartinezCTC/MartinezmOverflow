@@ -2,6 +2,7 @@ import express from 'express';
 import { validateAnswer, Answer } from '../models/Answer.js';
 import { sendError } from '../utils/jsonresponse.js';
 import { Question } from '../models/Question.js';
+import { updateUsefulness } from './questions.js';
 import mongoose from 'mongoose';
 
 const ObjectId = mongoose.Types.ObjectId;
@@ -36,5 +37,8 @@ router.post('/upload', async (req, res) => {
         success: true
     });
 });
+
+router.patch('/updateUsefulness', (req, res) => updateUsefulness(req, res, Answer));
+
 
 export default router;

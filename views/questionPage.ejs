@@ -34,12 +34,12 @@
                 </div>
             </div>
         </div>
-        <div class="question-info object-block">
+        <div class="question-info object-block votable-block" data-doc-id="<%= questionObj._id.toString() %>">
             <div>QuestionInfo</div>
             <div>
                 <div class="object__prop-row">
                     <div class="object__prop-val">usefulness</div>
-                    <div class="object__num"><%= questionObj.usefulness %></div>
+                    <div class="object__num js-usefulness"><%= questionObj.usefulness %></div>
                 </div>
                 <div class="object__prop-row">
                     <div class="object__prop-val">problem</div>
@@ -94,7 +94,7 @@
             <div>Answers</div>
             <div>
                 <% questionObj.answers.forEach(answerObj => { %>
-                    <div class="object-block" data-doc-id="<%= answerObj._id.toString() %>">
+                    <div class="object-block votable-block" data-doc-id="<%= answerObj._id.toString() %>">
                         <div class="anonymous"></div>
                         <div>
                             <div class="object__prop-row">
@@ -103,7 +103,7 @@
                             </div>
                             <div class="object__prop-row">
                                 <div class="object__prop-val">usefulness</div>
-                                <div class="object__num"><%= answerObj.usefulness  %></div>
+                                <div class="object__num js-usefulness"><%= answerObj.usefulness  %></div>
                             </div>
                             <div class="object__prop-row">
                                 <div class="object__prop-val">solution</div>

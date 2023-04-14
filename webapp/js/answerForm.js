@@ -41,3 +41,33 @@ answerFormContainer.addEventListener('submit', e => {
     });
 });
 
+
+
+document.querySelectorAll('.votable-block').forEach(block => block.addEventListener('click', e => {
+    const btn = e.target.closest('.object__btn');
+    if (!btn) return;
+
+    const add = btn.textContent.includes('up');
+
+    fetch(`/answer/updateUsefulness`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            add,
+            id: block.dataset.docId
+        })
+    })
+    .then(res => {
+        if (res.status === 204) {
+            const usefulnessEl = block.querySelector('.js-usefulness');
+            usefulnessEl.textContent = usefulnessEl.textContent * 1 + 1 * (add ? 1 : -1);
+        }
+    })
+    .catch(err => {
+        console.log('Can not connect to server. :/');
+        console.log(err);
+    });
+}));
+
