@@ -38,7 +38,7 @@ answerFormContainer.addEventListener('submit', e => {
     })
     .then(body => {
         if (!body.isError) return location.reload(true);
-        errorMsg(status, body.message);
+        displayError(status, body.message);
     })
     .catch(err => {
         console.log('Can not connect to server. :/');

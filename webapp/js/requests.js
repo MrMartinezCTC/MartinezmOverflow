@@ -1,7 +1,7 @@
 
 
 const errorMsg = (status, msg) => `
-    <div style="width: unset; padding: 1em; font-size: 1.2em;" class="object-block error-pop-up">
+    <div class="object-block error-pop-up">
         <div>Problem</div>
         <div>
             <div class="object__prop-row">
@@ -17,5 +17,18 @@ const errorMsg = (status, msg) => `
 `;
 
 
+function displayError (status, msg) {
+    let errorElement = document.createElement('div');
+    errorElement.innerHTML = errorMsg(status, msg).trim();
+    errorElement = document.body.appendChild(errorElement);
 
+    errorElement = errorElement.firstChild;
+
+    document.body.addEventListener('click', closeError);
+
+    function closeError () {
+        errorElement.remove();
+        errorElement.removeEventListener('click', closeError);
+    };
+}
 
