@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User, validateUser } from '../models/User.js';
+import { sendError } from '../utils/jsonresponse.js';
 
 const router = express.Router();
 
@@ -17,10 +18,7 @@ router.post('/signup', async (req, res) => {
         if (user) failMsg = 'The email provided is already in use.'
     }
 
-    if (failMsg) return res.status(400).json({
-        isError: true,
-        msg: failMsg
-    });
+    if (failMsg) return sendError(res, 400, failMsg);
 
     const hash = await bcrypt.hash(req.body.password, 10);
     
@@ -48,10 +46,7 @@ router.post('/login', async (req, res) => {
         if (!passIsCorrect) failure = true;
     }
 
-    if (failure) return res.status(400).json({
-        isError: true,
-        msg: 'Invalid email/password'
-    });
+    if (failure) return sendError(res, 400, 'Invalid email/password');
 
     res.cookie(...setCookie(req.body.email));
     res.status(200).json({
@@ -82,5 +77,4 @@ function setCookie(email) {
     ];
 }
 
-// module.exports = router;
 export default router;

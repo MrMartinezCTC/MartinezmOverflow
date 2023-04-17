@@ -42,6 +42,8 @@ accountForm.addEventListener('submit', e => {
 });
 
 function sendRequest (method, route, body) {
+    let status;
+
     fetch(`/user/${route}`, {
         method,
         headers: {
@@ -49,14 +51,14 @@ function sendRequest (method, route, body) {
           },
         body
     })
-    .then(res => res.json())
+    .then(res => { status = res.status; return res.json(); })
     .then(body => {
         if (!body.isError) {
             accountForm.style.display = 'none';
             location.reload(true);
             return;
         }
-        alert (body.msg);
+        displayError(status, body.message);
     })
     .catch(err => {
         console.log('Can not connect to server. :/');

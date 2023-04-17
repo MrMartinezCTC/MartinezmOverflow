@@ -2,7 +2,7 @@
 
 const errorMsg = (status, msg) => `
     <div class="object-block error-pop-up">
-        <div>Problem</div>
+        <div>problem</div>
         <div>
             <div class="object__prop-row">
                 <div class="object__prop-val">status</div>
