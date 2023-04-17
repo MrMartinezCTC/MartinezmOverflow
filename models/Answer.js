@@ -4,7 +4,11 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const AnswerSchema = new Schema({
-    content: {
+    answerText: {
+        required: true,
+        type: String
+    },
+    answerMarkup: {
         required: true,
         type: String
     },
@@ -28,7 +32,8 @@ const AnswerSchema = new Schema({
 
 export function validateAnswer(answer) {
     const schema = Joi.object({
-        content: Joi.string().required()
+        answerText: Joi.string().required(),
+        answerMarkup: Joi.string().required()
     });
 
     return schema.validate(answer);

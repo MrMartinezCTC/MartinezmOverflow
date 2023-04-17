@@ -5,6 +5,7 @@ const cancelBtn = document.getElementById('cancelSubmit');
 const submitBtn = document.getElementById('submitSubmit');
 const toggleLengthBtn = document.getElementById('toggleLengthBtn');
 const answerFormInput = document.querySelector('textarea');
+const answerFormOutput = document.querySelector('#answerOutput');
 const answerView = document.querySelector('.answer-view');
 
 
@@ -21,7 +22,7 @@ document.getElementById('viewAnswerMarkup').addEventListener('click', e => {
     popup(answerView, e);
 });
 
-mirrorMessage(answerFormInput, document.getElementById('answerOutput'), true);
+mirrorMessage(answerFormInput, answerFormOutput, true);
 
 answerFormContainer.addEventListener('submit', e => {
     e.preventDefault();
@@ -34,7 +35,8 @@ answerFormContainer.addEventListener('submit', e => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            content: answerFormInput.value,
+            answerText: answerFormInput.value,
+            answerMarkup: answerFormOutput.textContent,
             id: location.href.split('=')[1]
         })
     })
