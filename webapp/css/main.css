@@ -231,6 +231,8 @@ button { cursor: pointer; }
 
 
 .question-content pre:has(code:empty) { display: none; }
+.object-block .object-block pre { border: 1px solid; }
+
 
 
 /*************form expand/condense**********/

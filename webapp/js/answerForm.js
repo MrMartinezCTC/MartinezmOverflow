@@ -21,6 +21,7 @@ document.getElementById('viewAnswerMarkup').addEventListener('click', e => {
     popup(answerView, e);
 });
 
+mirrorMessage(answerFormInput, document.getElementById('answerOutput'), true);
 
 answerFormContainer.addEventListener('submit', e => {
     e.preventDefault();
