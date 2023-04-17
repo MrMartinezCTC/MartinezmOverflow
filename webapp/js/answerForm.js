@@ -5,6 +5,7 @@ const cancelBtn = document.getElementById('cancelSubmit');
 const submitBtn = document.getElementById('submitSubmit');
 const toggleLengthBtn = document.getElementById('toggleLengthBtn');
 const answerFormInput = document.querySelector('textarea');
+const answerView = document.querySelector('.answer-view');
 
 
 cancelBtn.addEventListener('click', () => answerFormInput.value = '');
@@ -14,7 +15,11 @@ toggleLengthBtn.addEventListener('click', () => {
     const hidden = answerFormContainer.classList.toggle('condensed');
 
     toggleLengthBtn.textContent = hidden ? 'expand' : 'condense';
-})
+});
+
+document.getElementById('viewAnswerMarkup').addEventListener('click', e => {
+    popup(answerView, e);
+});
 
 
 answerFormContainer.addEventListener('submit', e => {

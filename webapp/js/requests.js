@@ -1,34 +1,36 @@
 
+const errorPopup = document.querySelector('.error-pop-up');
 
 const errorMsg = (status, msg) => `
-    <div class="object-block error-pop-up">
-        <div>problem</div>
-        <div>
-            <div class="object__prop-row">
-                <div class="object__prop-val">status</div>
-                <div class="object__num">${status}</div>
-            </div>
-            <div class="object__prop-row">
-                <div class="object__prop-val">issue</div>
-                <div>${msg}</div>
-            </div>
+    <div>problem</div>
+    <div>
+        <div class="object__prop-row">
+            <div class="object__prop-val">status</div>
+            <div class="object__num">${status}</div>
+        </div>
+        <div class="object__prop-row">
+            <div class="object__prop-val">issue</div>
+            <div>${msg}</div>
         </div>
     </div>
 `;
 
 
 function displayError (status, msg) {
-    let errorElement = document.createElement('div');
-    errorElement.innerHTML = errorMsg(status, msg).trim();
-    errorElement = document.body.appendChild(errorElement);
-
-    errorElement = errorElement.firstChild;
-
-    document.body.addEventListener('click', closeError);
-
-    function closeError () {
-        errorElement.remove();
-        errorElement.removeEventListener('click', closeError);
-    };
+    errorPopup.innerHTML = errorMsg(status, msg);
+    popup(errorPopup);
 }
 
+
+function popup (element, e) {
+    e && e.stopPropagation();
+
+    element.style.display = 'block';
+    document.body.addEventListener('click', closePopup);
+    
+    function closePopup (e) {
+        if (element.contains(e.target)) return;
+        element.style.display = 'none';
+        document.body.removeEventListener('click', closePopup);
+    }
+}

@@ -75,18 +75,35 @@
                     <div class=""></div>
                 </div>
                 <div class="object__prop-row">
-                    <div class="object__prop-val">questionContent</div>
+                    <div class="object__prop-val">answerContent</div>
                     <div class="string question-content">
                         <textarea class="question-input" required></textarea>
                     </div>
                 </div>
-                <div class="object__prop-row">
-                    <button class="object__prop-val object__btn" id="submitAnswer">submit</button>
-                    <div class=""></div>
+                <div class="flex-row">
+                    <div class="object__prop-row">
+                        <button class="object__prop-val object__btn" id="submitAnswer">submit</button>
+                        <div class=""></div>
+                    </div>
+                    <div class="object__prop-row">
+                        <div class="object__prop-val object__btn" id="cancelSubmit">cancel</div>
+                        <div class=""></div>
+                    </div>
+                    <div class="object__prop-row">
+                        <div class="object__prop-val object__btn" id="viewAnswerMarkup">view</div>
+                        <div class=""></div>
+                    </div>
                 </div>
+            </div>
+            <div class="object-block answer-view pop-up">
+                <div>answerLook</div>
                 <div class="object__prop-row">
-                    <div class="object__prop-val object__btn" id="cancelSubmit">cancel</div>
-                    <div class=""></div>
+                    <div class="object__prop-val">answer</div>
+                    <div class="string question-content">
+                        <div class="markup-display" id="questionOutput">
+                            No answer content has been provided.
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
