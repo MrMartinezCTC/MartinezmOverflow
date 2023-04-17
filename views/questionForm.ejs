@@ -54,6 +54,7 @@
             </div>
         </div>
     </div>
+    <script src="./js/createMsg.js"></script>
     <script>
         const titleInput = document.querySelector('#questionTitle');
         const titleOutput = document.querySelector('#titleOutput');
@@ -61,53 +62,8 @@
         const questionOutput = document.querySelector('#questionOutput');
 
 
-        titleInput.addEventListener('keypress', e => {
-            titleOutput.textContent = mirrorType(titleInput, e.key);
-        });
-        
-        questionInput.addEventListener('keypress', e => {
-            e.preventDefault();
-            const mousePos = questionInput.selectionStart;
-            questionInput.value = mirrorType(questionInput, e.key);
-            questionInput.setSelectionRange(mousePos+1, mousePos+1);
-
-            makeTextFancy();
-        });
-        
-        questionInput.addEventListener('change', makeTextFancy);
-        
-        function makeTextFancy () {
-            let inputText = questionInput.value, codeBlockChars = 0;
-            
-            inputText = inputText
-                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                .replace(/```\w+ \n|```\w+ |```/g, match => {
-                    codeBlockChars++;
-
-                    const closeChar = codeBlockChars % 2 ? '' : '/';
-                    const tagsArr = [`<${closeChar}pre>`],
-
-                    language = closeChar ? '' : ` class="language-${match.slice(3)}"`;
-
-                    tagsArr[closeChar ? 'unshift' : 'push'](`<${closeChar}code${language}>`);
-
-                    return tagsArr.join('');
-            });
-
-            questionOutput.innerHTML = inputText;
-            questionOutput.innerHTML = Array.from(questionOutput.childNodes).map(child => child.nodeType === 3 ? child.textContent.replace(/\n/g, '</br>') : child.outerHTML).join('');
-            Prism.highlightAll();
-        }
-
-
-        function mirrorType (txtInput, key) {
-            let newStr = txtInput.value.split('');
-            newStr.splice(txtInput.selectionStart, 0, key === 'Enter' ? '\n' : key);
-            newStr = newStr.join('');
-
-            return newStr;
-        }
-
+        mirrorMessage(titleInput, titleOutput);
+        mirrorMessage(questionInput, questionOutput, true);
 
         document.getElementById('qstnForm').addEventListener('submit', e => {
             e.preventDefault();
