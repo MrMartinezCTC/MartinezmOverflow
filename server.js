@@ -92,5 +92,14 @@ app.use('/answer', answer);
 
 
 
+
+// const allAnswers = Answer.find();
+
+// allAnswers.forEach(answer => {
+// 	answer.answerMarkup = answer.answerText;
+// 	answer.save();
+// })
+
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);

@@ -12,10 +12,6 @@ const QuestionSchema = new Schema({
         required: true,
         type: String
     },
-    questionMarkup: {
-        required: true,
-        type: String
-    },
     usefulness: {
         default: 0,
         type: Number
@@ -49,7 +45,6 @@ export function validateQuestion (question) {
     const schema = Joi.object({
         title: Joi.string().required(),
         questionText: Joi.string().required(),
-        questionMarkup: Joi.string().required()
     });
 
     return schema.validate(question);

@@ -8,10 +8,6 @@ const AnswerSchema = new Schema({
         required: true,
         type: String
     },
-    answerMarkup: {
-        required: true,
-        type: String
-    },
     usefulness: {
         default: 0,
         type: Number
@@ -32,8 +28,7 @@ const AnswerSchema = new Schema({
 
 export function validateAnswer(answer) {
     const schema = Joi.object({
-        answerText: Joi.string().required(),
-        answerMarkup: Joi.string().required()
+        answerText: Joi.string().required()
     });
 
     return schema.validate(answer);

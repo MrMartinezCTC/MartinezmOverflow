@@ -44,8 +44,8 @@
                 <div class="object__prop-row">
                     <div class="object__prop-val">problem</div>
                     <div class="string question-content">
-                        <div id="questionOutput">
-                            <%-questionObj.questionMarkup%>
+                        <div id="questionOutput" class="messageText">
+                            <%=questionObj.questionText%>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,11 @@
                             </div>
                             <div class="object__prop-row">
                                 <div class="object__prop-val">solution</div>
-                                <div><%= answerObj.answerMarkup %></div>
+                                <div class="string question-content">
+                                    <div class="markup-display messageText">
+                                        <%= answerObj.answerText %>
+                                    </div>
+                                </div>
                             </div>
                             <div class="object__prop-row">
                                 <div class="object__prop-val object__btn">upVote</div>
@@ -141,7 +145,7 @@
         </div>
     </div>
 
-    <script src="../js/createMsg.js"></script>
-    <script src="../js/answerForm.js"></script>
-    <script src="../extrenal/js/prism.js"></script>
+    <script src="extrenal/js/prism.js"></script>
+    <script src="js/createMsg.js"></script>
+    <script src="js/answerForm.js"></script>
 <%- include('partials/footer') %>
