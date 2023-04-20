@@ -11,10 +11,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const router = express.Router();
 
 router.post('/upload', async (req, res) => {
-    const answerObj = {
-        answerText: req.body.answerText,
-        answerMarkup: req.body.answerMarkup
-    }
+    const answerObj = { answerText: req.body.answerText }
     
     const { error } = validateAnswer(answerObj);
     if (error) return sendError(res, 400, error.details[0].message);

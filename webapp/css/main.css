@@ -204,7 +204,10 @@ button { cursor: pointer; }
     overflow-x: auto;
 }
 
-.question-content .markup-display { padding-right: 1em; }
+.question-content .markup-display {
+    padding-right: 1em;
+    width: calc(100% - 8px);
+}
 
 .question-content::after {
     position: absolute;
@@ -227,6 +230,7 @@ button { cursor: pointer; }
     box-shadow: none;
     margin: 0 1em;
     background-color: #333;
+    max-width: 100%;
 }
 
 

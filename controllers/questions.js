@@ -6,10 +6,13 @@ const router = express.Router();
 
 
 router.post('/upload', async (req, res) => {
-    const { error } = validateQuestion(req.body);
-    if (error) sendError(res, 400, error.details[0].message);
+    const questionObj = {
+        title: req.body.title,
+        questionText: req.body.questionText
+    }
     
-    const questionObj = { ... req.body };
+    const { error } = validateQuestion(questionObj);
+    if (error) return sendError(res, 400, error.details[0].message);
 
     questionObj.dateAsked = (new Date ()).toUTCString();
     
