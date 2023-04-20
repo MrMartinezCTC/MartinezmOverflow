@@ -31,12 +31,24 @@ export const updateUsefulness = async (req, res, Model) => {
     const doc = await getDoc(req.body.id, Model);
     if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
 
-    doc.usefulness += req.body.add ? 1 : -1;
+    if (typeof req.body.add !== 'boolean') return sendError(res, 400, 'add value must be a boolean');
+
+    const typeOfVote = ['down', 'up'];
+    const voteInd = req.body.add * 1;
+
+    if (doc[`${typeOfVote[voteInd]}Votes`].indexOf(req.user._id) > -1) {
+        return sendError(res, 400, `You have already ${typeOfVote[voteInd]}voted this.`);
+    }
+
+    const indOfOppositeVote = doc[`${typeOfVote[Math.abs(voteInd - 1)]}Votes`].indexOf(req.user._id)
+    if (indOfOppositeVote > -1) doc[`${typeOfVote[Math.abs(voteInd - 1)]}Votes`].splice(indOfOppositeVote, 1);
+    else doc[`${typeOfVote[voteInd]}Votes`].push(req.user._id);
+
+    doc.usefulness += voteInd * 2 - 1;
     
     await doc.save();
 
     return res.status(204).json({ success: true });
 }
-
 
 export default router;

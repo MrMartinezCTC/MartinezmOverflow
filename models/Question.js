@@ -35,7 +35,15 @@ const QuestionSchema = new Schema({
     },
     user: {
         type: String
-    }
+    },
+    upVotes: {
+        type: Array,
+        default: []
+    },
+    downVotes: {
+        type: Array,
+        default: []
+    },
 },{
     collection: 'questions'
 });

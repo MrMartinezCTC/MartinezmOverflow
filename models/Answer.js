@@ -20,7 +20,15 @@ const AnswerSchema = new Schema({
     },
     questionId: {
         type: Object
-    }
+    },
+    upVotes: {
+        type: Array,
+        default: []
+    },
+    downVotes: {
+        type: Array,
+        default: []
+    },
 },{
     collection: 'answers'
 });
