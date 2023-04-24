@@ -24,6 +24,9 @@
             <span>)</span>
         </div>
         <div class="account-btns">
+            <%
+                const userInfo = locals.user ? user : {};
+            %>
             <% if (locals.user) { %>
                 <!-- <button>Log Out</button> -->
                 <button data-form_class="user-info" data-object_title="User Info"><%=`${user.firstName} ${user.lastName}`%></button>
@@ -38,23 +41,23 @@
                         <div class="object__prop-row">
                             <div class="object__prop-val">firstName</div>
                             <div>
-                                <input id="firstName" type="text">
+                                <input id="firstName" type="text" value="<%= userInfo.firstName %>">
                             </div>
                         </div>
                         <div class="object__prop-row">
                             <div class="object__prop-val">lastName</div>
                             <div>
-                                <input id="lastName" type="text">
+                                <input id="lastName" type="text" value="<%= userInfo.lastName %>">
                             </div>
                         </div>
                     </div>
                     <div class="object__prop-row">
                         <div class="object__prop-val">email</div>
                         <div>
-                            <input id="email" type="email">
+                            <input id="email" type="email" value="<%= userInfo.email %>">
                         </div>
                     </div>
-                    <div class="object-block change-pass">
+                    <div class="object-block change-pass user-info-child">
                         <div>changePass</div>
                         <div>
                             <div class="object__prop-row">
@@ -83,9 +86,15 @@
                             <input id="password" type="password">
                         </div>
                     </div>
-                    <div class="object__prop-row">
-                        <button class="object__prop-val object__btn">Submit</button>
-                        <div class=""></div>
+                    <div class="flex-row" style="font-size: 0.9em;">
+                        <div class="object__prop-row user-info-child">
+                            <button class="object__prop-val object__btn" type="button">Log Out</button>
+                            <div class=""></div>
+                        </div>
+                        <div class="object__prop-row">
+                            <button class="object__prop-val object__btn">Submit</button>
+                            <div class=""></div>
+                        </div>
                     </div>
                 </div>
             </form>
