@@ -276,9 +276,17 @@ button { cursor: pointer; }
     display: none;
 }
 
+.account-pop-up.user-info .change-pass { display: block; }
+.account-pop-up.user-info .password-bar { display: none; }
+
+
 .username-row { font-size: 0.8em; }
 .username-row input { width: 7em; }
 
+
+.change-pass {
+    display: none;
+}
 
 /**************error pop up************/
 

@@ -25,10 +25,11 @@
         </div>
         <div class="account-btns">
             <% if (locals.user) { %>
-                <button>Log Out</button>
+                <!-- <button>Log Out</button> -->
+                <button data-form_class="user-info" data-object_title="User Info"><%=`${user.firstName} ${user.lastName}`%></button>
             <% } else { %>
-                <button>Sign Up</button>
-                <button>Log In</button>
+                <button data-form_class="" data-object_title="Sign Up">Sign Up</button>
+                <button data-form_class="log-in" data-object_title="Log In">Log In</button>
             <% } %>
             <form class="account-pop-up object-block">
                 <div>Sign Up</div>
@@ -53,7 +54,30 @@
                             <input id="email" type="email">
                         </div>
                     </div>
-                    <div class="object__prop-row">
+                    <div class="object-block change-pass">
+                        <div>changePass</div>
+                        <div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">currentPass</div>
+                                <div>
+                                    <input type="password" name="password">
+                                </div>
+                            </div>    
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">newPass</div>
+                                <div>
+                                    <input type="password" name="newPassword">
+                                </div>
+                            </div>    
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">confirmPass</div>
+                                <div>
+                                    <input type="password" name="confirmPassword">
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="object__prop-row password-bar">
                         <div class="object__prop-val">password</div>
                         <div>
                             <input id="password" type="password">

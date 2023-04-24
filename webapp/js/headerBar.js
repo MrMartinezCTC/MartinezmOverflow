@@ -2,15 +2,15 @@
 const accountForm = document.querySelector('.account-pop-up');
 const accountBtns = document.querySelectorAll('.account-btns > button');
 
+const ogAccountClass = accountForm.className;
+
 accountBtns.forEach(accountBtn => accountBtn.addEventListener('click', e => {
     e.stopPropagation();
 
-    if (accountBtn.textContent.includes('ut')) return sendRequest('GET', 'logout');
+    accountForm.className = `${ogAccountClass} ${accountBtn.dataset.form_class}`;
 
     accountForm.style.display = 'block';
-    let [action, actionTitle] = accountBtn.textContent.includes('og') ? ['add', 'Log In'] : ['remove', 'Sign Up'];
-    accountForm.classList[action]('log-in');
-    accountForm.firstElementChild.textContent = actionTitle;
+    accountForm.firstElementChild.textContent = accountBtn.dataset.object_title;
     
     document.body.addEventListener('click', closeAccountForm);
     
