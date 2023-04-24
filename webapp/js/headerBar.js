@@ -5,23 +5,14 @@ const accountBtns = document.querySelectorAll('.account-btns > button');
 const ogAccountClass = accountForm.className;
 
 accountBtns.forEach(accountBtn => accountBtn.addEventListener('click', e => {
-    e.stopPropagation();
+    popup(accountForm, e);
 
     accountForm.className = `${ogAccountClass} ${accountBtn.dataset.form_class}`;
-
-    accountForm.style.display = 'block';
     accountForm.firstElementChild.textContent = accountBtn.dataset.object_title;
-    
-    document.body.addEventListener('click', closeAccountForm);
-    
-    
-    function closeAccountForm (e) {
-        if (e.target.closest('.account-pop-up')) return;
-        accountForm.style.display = 'none';
-        document.body.removeEventListener('click', closeAccountForm);
-    }
 }));
 
+
+document.getElementById('logOutBtn').addEventListener('click', () => sendRequest('GET', 'logout'));
 
 accountForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -38,8 +29,9 @@ accountForm.addEventListener('submit', e => {
         objToSend.lastName = document.getElementById('lastName').value;
     }
 
-    sendRequest('POST', route, JSON.stringify(objToSend));
+    return sendRequest('POST', route, JSON.stringify(objToSend));
 });
+
 
 function sendRequest (method, route, body) {
     let status;
