@@ -39,12 +39,7 @@ router.post('/login', async (req, res) => {
     let failure = false;
 
     const user = await User.findOne({ email: req.body.email });
-    if (!user) failure = true;
-    else {
-        const passIsCorrect = await bcrypt.compare(req.body.password, user.password);
-
-        if (!passIsCorrect) failure = true;
-    }
+    if (!user || !await passIsCorrect(req.body.password, user.password)) failure = true;
 
     if (failure) return sendError(res, 400, 'Invalid email/password');
 
@@ -62,6 +57,35 @@ router.get('/logout', (req, res) => {
         success: true
     });
 });
+
+
+router.post('/changeInfo', async (req, res) => {
+    const user = req.user;
+    if (!user) return sendError(res, 401, 'Must have an account to preform requested action.');
+    
+    const { firstName, lastName, email, password, newPassword, confirmPassword } = req.body;
+    const passwordsArr = [password, newPassword, confirmPassword];
+
+    if (passwordsArr.filter(pass => pass).length > 0) {
+        if (!passwordsArr.every(pass => pass)) return sendError(res, 400, 'Must fill all three password fields to change password.');
+        if (newPassword !== confirmPassword) return sendError(res, 400, 'Confirm password needs to be the same as new password');
+        if (!await passIsCorrect(password, user.password)) return sendError(res, 400, 'Current password value is not correct.');
+    }
+
+    const userInfo = { firstName, lastName, email };
+    for (const key in userInfo) if (userInfo[key]) user[key] = userInfo[key];
+
+    if (password) user.password = await bcrypt.hash(password, 10);
+
+    user.save();
+
+    return res.status(204).json();
+});
+
+
+async function passIsCorrect (passGuess, actualPass) {
+    return await bcrypt.compare(passGuess, actualPass);
+}
 
 
 function setCookie(email) {

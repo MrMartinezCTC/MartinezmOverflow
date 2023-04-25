@@ -51,7 +51,7 @@ export const updateUsefulness = async (req, res, Model) => {
     
     await doc.save();
 
-    return res.status(204).json({ success: true });
+    return res.status(204).json();
 }
 
 export default router;

@@ -29,6 +29,13 @@ accountForm.addEventListener('submit', e => {
         objToSend.lastName = document.getElementById('lastName').value;
     }
 
+    if (e.target.className.includes('user')) {
+        route = 'changeInfo';
+        objToSend.password = document.getElementById('curPass').value;
+        objToSend.newPassword = document.getElementById('newPass').value;
+        objToSend.confirmPassword = document.getElementById('conPass').value;
+    }
+
     return sendRequest('POST', route, JSON.stringify(objToSend));
 });
 
@@ -43,18 +50,24 @@ function sendRequest (method, route, body) {
           },
         body
     })
-    .then(res => { status = res.status; return res.json(); })
+    .then(res => {
+        status = res.status;
+        if (status === 204) return reloadPage();
+        return res.json();
+    })
     .then(body => {
-        if (!body.isError) {
-            accountForm.style.display = 'none';
-            location.reload(true);
-            return;
-        }
+        if (!body.isError) return reloadPage();
         displayError(status, body.message);
     })
     .catch(err => {
         console.log('Can not connect to server. :/');
         console.log(err);
     });
+
+    function reloadPage () {
+        accountForm.style.display = 'none';
+        location.reload(true);
+        return new Promise(resolve => resolve({}));
+    }
 }
 
