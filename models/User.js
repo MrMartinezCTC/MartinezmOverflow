@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import mongoose from 'mongoose';
 
-
 const Schema = mongoose.Schema;
+
 
 const UserSchema = new Schema({
     email: {
@@ -31,6 +31,11 @@ const UserSchema = new Schema({
     collection: 'users'
 });
 
+UserSchema.path('email').validate(async (value) => {
+    const emailCount = await mongoose.models.User.countDocuments({email: value });
+    return !emailCount;
+}, 'Email already exists');;
+
 
 export function validateUser(user) {
     const schema = Joi.object({
@@ -43,5 +48,5 @@ export function validateUser(user) {
     return schema.validate(user);
 }
 
-export const User = mongoose.model('users', UserSchema);
+export const User = mongoose.model('User', UserSchema);
 

@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User, validateUser } from '../models/User.js';
 import { sendError } from '../utils/jsonresponse.js';
+import { errorWrap } from '../utils/errorHandling.js';
 
 const router = express.Router();
 
@@ -59,7 +60,7 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.post('/changeInfo', async (req, res) => {
+router.post('/changeInfo', errorWrap(async (req, res) => {
     const user = req.user;
     if (!user) return sendError(res, 401, 'Must have an account to preform requested action.');
     
@@ -77,10 +78,10 @@ router.post('/changeInfo', async (req, res) => {
 
     if (password) user.password = await bcrypt.hash(password, 10);
 
-    user.save();
+    await user.save();
 
     return res.status(204).json();
-});
+}));
 
 
 async function passIsCorrect (passGuess, actualPass) {
