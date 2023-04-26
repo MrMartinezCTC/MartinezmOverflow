@@ -73,12 +73,20 @@ router.post('/changeInfo', errorWrap(async (req, res) => {
         if (!await passIsCorrect(password, user.password)) return sendError(res, 400, 'Current password value is not correct.');
     }
 
-    const userInfo = { firstName, lastName, email };
-    for (const key in userInfo) if (userInfo[key]) user[key] = userInfo[key];
+    // const userInfo = { firstName, lastName, email };
+    // for (const key in userInfo) if (userInfo[key]) user[key] = userInfo[key];
 
-    if (password) user.password = await bcrypt.hash(password, 10);
+    // if (password) user.password = await bcrypt.hash(password, 10);
 
-    await user.save();
+    // await user.save();
+    
+    const userInfo = { firstName, lastName, email }, propsToUpdate = {};
+
+    for (const key in userInfo) if (userInfo[key] && userInfo[key] !== user[key]) propsToUpdate[key] = userInfo[key];
+
+    if (newPassword) propsToUpdate.password = await bcrypt.hash(newPassword, 10);
+
+    await User.updateOne({ _id: user._id }, propsToUpdate, { runValidators: true });
 
     return res.status(204).json();
 }));

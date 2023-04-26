@@ -31,10 +31,10 @@ const UserSchema = new Schema({
     collection: 'users'
 });
 
-UserSchema.path('email').validate(async (value) => {
-    const emailCount = await mongoose.models.User.countDocuments({email: value });
+UserSchema.path('email').validate(async email => {
+    const emailCount = await mongoose.models.User.countDocuments({ email });
     return !emailCount;
-}, 'Email already exists');;
+}, 'Email already exists');
 
 
 export function validateUser(user) {
