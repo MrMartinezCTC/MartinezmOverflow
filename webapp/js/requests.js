@@ -70,6 +70,7 @@ function popup (element, e) {
     
     function closePopup (e) {
         if (element.contains(e.target)) return;
+        e.preventDefault();
         element.style.display = 'none';
         document.body.removeEventListener('click', closePopup);
     }
