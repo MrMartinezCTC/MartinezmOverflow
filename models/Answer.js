@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { _required } from '../utils/Model';
+import { _required } from '../utils/Model.js';
 
 const Schema = mongoose.Schema;
 

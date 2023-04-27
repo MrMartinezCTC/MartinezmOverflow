@@ -74,6 +74,7 @@
                 questionMarkup: questionOutput.innerHTML
             });
 
+            let status;
             fetch(`/question/upload`, {
                 method: 'POST',
                 headers: {
@@ -81,10 +82,10 @@
                 },
                 body
             })
-            .then(res => res.json())
+            .then(res => { status = res.status; return res.json() })
             .then(body => {
                 if (!body.isError) return location.href = '/';
-                alert (body.msg);
+                displayError(status, body.message);
             })
             .catch(err => {
                 console.log('Can not connect to server. :/');
