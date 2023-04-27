@@ -7,17 +7,36 @@ import { errorWrap } from '../utils/errorHandling.js';
 
 const router = express.Router();
 
+// router.post('/signup', errorWrap(async (req, res) => {
+//     const hash = await bcrypt.hash(req.body.password, 10);
+    
+//     const user = new User({
+//         firstName: req.body.firstName,
+//         lastName: req.body.lastName,
+//         email: req.body.email,
+//         password: hash
+//     });
+
+//     await user.save();
+//     res.cookie(...setCookie(req.body.email));
+//     res.status(201).json(user);
+// }));
+
 router.post('/signup', errorWrap(async (req, res) => {
-    const hash = await bcrypt.hash(req.body.password, 10);
     
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: hash
+        password: req.body.password
     });
     
+    await user.validate();
+    
+    user.password = await bcrypt.hash(req.body.password, 10);
+    
     await user.save();
+
     res.cookie(...setCookie(req.body.email));
     res.status(201).json(user);
 }));

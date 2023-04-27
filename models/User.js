@@ -1,30 +1,30 @@
-import Joi from 'joi';
 import mongoose from 'mongoose';
+import { _maxLength, _minLength, _required } from '../utils/Model.js';
 
 const Schema = mongoose.Schema;
 
 
 const UserSchema = new Schema({
     email: {
-        maxLength: [50, 'email can not contain more than 50 characters'],
-        required: true,
+        maxLength: _maxLength('email', 50),
+        required: _required('email'),
         unique: true,
         type: String
     },
     firstName: {
-        maxLength: [20, 'firstName can not contain more than 20 characters'],
-        required: true,
+        maxLength: _maxLength('firstName', 20),
+        required: _required('firstName'),
         type: String
     },
     lastName: {
-        maxLength: [20, 'lastName can not contain more than 20 characters'],
-        required: true,
+        maxLength: _maxLength('lastName', 20),
+        required: _required('lastName'),
         type: String
     },
     password: {
-        maxLength: [100, 'password can not contain more than 100 characters'],
-        required: true,
-        minLength: 8,
+        maxLength: _maxLength('password', 100),
+        required: _required('password'),
+        minLength: _minLength('password', 8),
         type: String,
     }
 },{
@@ -34,8 +34,7 @@ const UserSchema = new Schema({
 UserSchema.path('email').validate(async email => {
     const emailCount = await mongoose.models.User.countDocuments({ email });
     return !emailCount;
-}, 'Email already exists');
+}, 'The provided email is already in use.');
 
 
 export const User = mongoose.model('User', UserSchema);
-
