@@ -1,15 +1,15 @@
-import Joi from 'joi';
 import mongoose from 'mongoose';
+import { _required } from '../utils/Model.js'
 
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
     title: {
-        required: true,
+        required: _required('title'),
         type: String
     },
     questionText: {
-        required: true,
+        required: _required('questionText'),
         type: String
     },
     usefulness: {
@@ -47,16 +47,5 @@ const QuestionSchema = new Schema({
 },{
     collection: 'questions'
 });
-
-
-export function validateQuestion (question) {
-    const schema = Joi.object({
-        title: Joi.string().required(),
-        questionText: Joi.string().required(),
-    });
-
-    return schema.validate(question);
-}
-
 
 export const Question = mongoose.model('questions', QuestionSchema);

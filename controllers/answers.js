@@ -1,20 +1,18 @@
 import express from 'express';
-import { validateAnswer, Answer } from '../models/Answer.js';
+import { Answer } from '../models/Answer.js';
 import { getDoc, sendError, validateId } from '../utils/jsonresponse.js';
 import { Question } from '../models/Question.js';
 import { updateUsefulness } from './questions.js';
 import mongoose from 'mongoose';
+import { errorWrap } from '../utils/errorHandling.js';
 
 const ObjectId = mongoose.Types.ObjectId;
 
 
 const router = express.Router();
 
-router.post('/upload', async (req, res) => {
+router.post('/upload', errorWrap(async (req, res) => {
     const answerObj = { answerText: req.body.answerText }
-    
-    const { error } = validateAnswer(answerObj);
-    if (error) return sendError(res, 400, error.details[0].message);
 
     const user = req.user, id = req.body.id;
     if (!user) return sendError(res, 401, "Must be logged in to answer a question.");
@@ -31,12 +29,10 @@ router.post('/upload', async (req, res) => {
 
     await question.save();
 
-    res.status(200).json({
-        success: true
-    });
-});
+    res.status(201).json({ success: true });
+}));
 
-router.patch('/updateUsefulness', (req, res) => updateUsefulness(req, res, Answer));
+router.patch('/updateUsefulness', errorWrap((req, res) => updateUsefulness(req, res, Answer)));
 
 
 export default router;

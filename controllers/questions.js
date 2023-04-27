@@ -1,18 +1,16 @@
 import express from 'express';
-import { validateQuestion, Question } from '../models/Question.js';
+import { Question } from '../models/Question.js';
 import { getDoc, sendError } from '../utils/jsonresponse.js';
+import { errorWrap } from '../utils/errorHandling.js';
 
 const router = express.Router();
 
 
-router.post('/upload', async (req, res) => {
+router.post('/upload', errorWrap(async (req, res) => {
     const questionObj = {
         title: req.body.title,
         questionText: req.body.questionText
     }
-    
-    const { error } = validateQuestion(questionObj);
-    if (error) return sendError(res, 400, error.details[0].message);
 
     questionObj.dateAsked = (new Date ()).toUTCString();
     
@@ -22,10 +20,10 @@ router.post('/upload', async (req, res) => {
     await Question.create(questionObj);
 
     res.status(201).json({ success: true });
-});
+}));
 
 
-router.patch('/updateUsefulness', (req, res) => updateUsefulness(req, res, Question));
+router.patch('/updateUsefulness', errorWrap((req, res) => updateUsefulness(req, res, Question)));
 
 
 export const updateUsefulness = async (req, res, Model) => {
