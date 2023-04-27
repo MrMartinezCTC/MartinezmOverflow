@@ -61,15 +61,19 @@ function displayError (status, msg) {
     popup(errorPopup);
 }
 
-
+let popUps = 0;
 function popup (element, e) {
     e && e.stopPropagation();
 
     element.style.display = 'block';
     document.body.addEventListener('click', closePopup);
+
+    popUps++;
+    element.popUpInd = popUps;
     
     function closePopup (e) {
-        if (element.contains(e.target)) return;
+        if (element.contains(e.target) || element.popUpInd !== popUps) return;
+        popUps--;
         e.preventDefault();
         element.style.display = 'none';
         document.body.removeEventListener('click', closePopup);
