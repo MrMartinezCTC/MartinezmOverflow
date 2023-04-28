@@ -15,8 +15,10 @@ export const validateId = async (id, Model) => {
 }
 
 export const getDoc = async (id, Model) => {
-
     if (!validateId(id)) return false;
-
-    return await Model.findById(id);
+    try {
+        return await Model.findById(id);
+    } catch (error) {
+        return false;
+    }
 } 

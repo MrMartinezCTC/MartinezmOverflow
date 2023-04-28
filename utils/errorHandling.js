@@ -1,9 +1,9 @@
 import { sendError } from "./jsonresponse.js";
 
 export function errorWrap (func) {
-    return async function (req, res) {
+    return async function (req, res, next) {
         try {
-            await func (req, res);
+            await func (req, res, next);
         } catch (error) {
             if (error.name === 'ValidationError') {
                 let errors = {};
@@ -16,6 +16,7 @@ export function errorWrap (func) {
             }
 
             sendError(res, 500, 'Something terrible has happened.');
+            console.log(error);
         }
     }
 }
