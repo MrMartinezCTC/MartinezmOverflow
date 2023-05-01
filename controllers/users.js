@@ -41,13 +41,13 @@ router.post('/login', errorWrap(async (req, res) => {
 }));
 
 
-router.get('/logout', (req, res) => {
+router.get('/logout', errorWrap((req, res) => {
     res.clearCookie('mrCookie');
 
     res.status(200).json({
         success: true
     });
-});
+}));
 
 
 router.post('/changeInfo', errorWrap(async (req, res) => {
