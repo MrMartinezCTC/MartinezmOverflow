@@ -306,6 +306,10 @@ button { cursor: pointer; }
     width: unset !important;
 }
 
+.answer-list .object-block {
+    margin: 1.4em 0;
+}
+
 
 @media only screen and (max-width: 85em) {
     .search-box {
