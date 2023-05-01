@@ -84,7 +84,7 @@ app.use('/question', question);
 app.use('/answer', answer);
 
 
-app.get('/search', async (req, res) => {
+app.get('/search', errorWrap(async (req, res) => {
     let searchParam = req.query.q;
 
 	if (!searchParam) searchParam = '';
@@ -95,5 +95,13 @@ app.get('/search', async (req, res) => {
 		questions: matchedQuestions,
 		user: req.user
 	});
-});
+}));
+
+
+app.all('*', errorWrap(async (req, res) => {
+	res.render('error', {
+		status: 404,
+		issue: 'The page requested does not exist.'
+	});
+}));
 
