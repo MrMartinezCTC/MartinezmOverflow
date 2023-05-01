@@ -85,13 +85,15 @@ app.use('/answer', answer);
 
 
 app.get('/search', async (req, res) => {
-    const searchParam = req.query.q;
+    let searchParam = req.query.q;
+
+	if (!searchParam) searchParam = '';
 
     const matchedQuestions = await Question.find({ $text: { $search: searchParam } });
 
-    res.status(200).json({ 
-        success: true,
-        matchedQuestions
-    })
+    res.render('index', {
+		questions: matchedQuestions,
+		user: req.user
+	});
 });
 
