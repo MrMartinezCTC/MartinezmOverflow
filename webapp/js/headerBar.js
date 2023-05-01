@@ -72,7 +72,9 @@ function sendRequest (method, route, body) {
 }
 
 const searchBox = document.querySelector('.search-box input');
-document.querySelector('.search-box button').addEventListener('click', () => {
+document.querySelector('.search-box').addEventListener('submit', e => {
+    e.preventDefault();
+    
     location.href = `/search?q=${searchBox.value}`;
 });
 
