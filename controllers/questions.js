@@ -26,6 +26,7 @@ router.post('/upload', errorWrap(async (req, res) => {
 router.patch('/updateUsefulness', errorWrap((req, res) => updateUsefulness(req, res, Question)));
 
 
+
 export const updateUsefulness = async (req, res, Model) => {
     if (!req.user) return sendError(res, 401, 'Must be signed in to vote.');
 

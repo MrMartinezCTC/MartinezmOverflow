@@ -48,4 +48,7 @@ const QuestionSchema = new Schema({
     collection: 'questions'
 });
 
+QuestionSchema.index({ "title": "text", "questionText": "text" });
+
+
 export const Question = mongoose.model('questions', QuestionSchema);
