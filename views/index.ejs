@@ -10,6 +10,31 @@
         <div class="object-block arr-block">
             <div>Questions</div>
             <div>
+                <% if (!questions.length) { %>
+                    <div class="object-block">
+                        <div class="anonymous"></div>
+                        <div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">title</div>
+                                <h3>No questions found with provided search query.</h3>
+                            </div>
+                            <div class="object__prop-row">
+                                <div class="object__prop-val">problem</div>
+                                <div class="string line-overflow">You can try enclosing specific phrases within "", or including '-' before a word to exclude it from the search results.</div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="object__prop-row">
+                                    <div class="object__prop-val">usefulness</div>
+                                    <div class="object__num">69</div>
+                                </div>
+                                <div class="object__prop-row">
+                                    <div class="object__prop-val">answers</div>
+                                    <div class="object__num">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
                 <% questions.forEach(question => { %>
                     <a class="object-block" href="/questionpage?id=<%= question._id.toString() %>">
                         <div class="anonymous"></div>
