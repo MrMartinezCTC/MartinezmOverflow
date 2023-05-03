@@ -46,6 +46,7 @@ button { cursor: pointer; }
 
 .header-bar {
     display: flex;
+    position: relative;
     width: 100%;
     justify-content: space-between;
     align-items: center;
@@ -71,13 +72,15 @@ button { cursor: pointer; }
     color: var(--object-text-color);
 }
 
+.header-bar > a > picture { display: inline-block; }
 
-.header-bar > a > img { width: 10em; }
+/* .header-bar > a img { width: 10em; } */
+.header-bar > a img { height: 1.19em; }
 
 .search-box {
     display: flex;
     align-items: center;
-    margin-left: 1em;
+    margin-left: 1.2em;
     border: 2px rgb(136, 136, 123) solid;
     width: 20em;
     border-radius: 0.1em;
@@ -89,7 +92,7 @@ button { cursor: pointer; }
     position: relative;
     font-size: 1.5em;
     align-self: center;
-    translate: 0 -3px; /***the paranthses char is not vertcally centered within its space**/
+    translate: 0 -3px; /***the parentheses char is not vertically centered within its space**/
 }
 
 .search-box span:last-of-type::before,
@@ -140,6 +143,7 @@ button { cursor: pointer; }
     position: relative;
     margin: 0 2em;
     border-radius: 3px;
+    white-space: nowrap;
 }
 
 .account-btns > button::after {
@@ -258,14 +262,14 @@ button { cursor: pointer; }
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     z-index: 400;
-    width: 26em;
+    max-width: 26em;
     font-size: 0.9em;
     box-shadow: 0 0 4px 2px white, 0 0 0 100vw #3338;
     display: none;
 }
 
 .account-pop-up input {
-    width: 16em;
+    max-width: 16em;
     font-size: 1em;
     padding: 0.1em;
     margin: 0.2em 0;
@@ -310,11 +314,22 @@ button { cursor: pointer; }
     margin: 1.4em 0;
 }
 
+@media only screen and (max-width: 38em) {
+    .show-search {
+        display: block;
+    }
 
-@media only screen and (max-width: 85em) {
     .search-box {
-        margin-right: unset;
-        translate: unset;
+        position: absolute;
+        top: 100%;
+        width: 90%;
+        margin-top: 0.4em;
+        margin-left: unset;
+        left: 50%;
+        translate: -50%;
+        box-shadow: 0 0 4px 2px gray;
     }
 }
+
+
 
