@@ -6,7 +6,7 @@ const toggleLengthBtn = document.getElementById('toggleLengthBtn');
 const answerFormInput = document.querySelector('textarea');
 const answerFormOutput = document.querySelector('#answerOutput');
 const answerView = document.querySelector('.answer-view');
-
+const questionAcceptedVal = document.getElementById('questionAcceptedVal');
 
 cancelBtn.addEventListener('click', () => answerFormInput.value = '');
 
@@ -60,33 +60,40 @@ document.querySelectorAll('.votable-block').forEach(block => {
         if (!btn) return;
 
         if (btn.textContent.includes('ccept')) {
-            //hit accept/unaccept endpoiint
-            return;
+            const makeFalse = btn.includes('un');
+            return sendBoolRequest('/question/updateAccepted', makeFalse, function () {
+                questionAcceptedVal.textContent = makeFalse; 
+            });
         }
     
         const add = btn.textContent.includes('up');
-    
-        fetch(`/${block.className.includes('question') ? 'question' : 'answer'}/updateUsefulness`, {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ add, id: block.dataset.docId })
-        })
-        .then(async res => {
-            if (res.status === 204) {
-                const usefulnessEl = block.querySelector('.js-usefulness');
-                usefulnessEl.textContent = usefulnessEl.textContent * 1 + (add ? 1 : -1);
-                return;
-            }
-            displayError(res.status, (await res.json()).message);
-        })
-        .catch(err => {
-            console.log('Can not connect to server. :/');
-            console.log(err);
+
+        sendBoolRequest(`${block.className.includes('question') ? 'question' : 'answer'}/updateUsefulness`, add, function () {
+            const usefulnessEl = block.querySelector('.js-usefulness');
+            usefulnessEl.textContent = usefulnessEl.textContent * 1 + (add ? 1 : -1);
         });
     });
     const messageTextEl = block.querySelector('.messageText');
     makeTextFancy(messageTextEl.textContent, messageTextEl);
 });
 
+
+
+function sendBoolRequest (route, boolVal, handleSuccess) {
+    fetch(`/${route}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ boolVal, id: block.dataset.docId })
+    })
+    .then(async res => {
+        if (res.status === 204) return handleSuccess();
+
+        displayError(res.status, (await res.json()).message);
+    })
+    .catch(err => {
+        console.log('Can not connect to server. :/');
+        console.log(err);
+    });
+}
