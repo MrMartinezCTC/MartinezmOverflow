@@ -257,15 +257,11 @@ button { cursor: pointer; }
 /***************************************************/
 
 .account-pop-up {
-    position: fixed;
     top: 45%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
     z-index: 400;
     max-width: 26em;
     font-size: 0.9em;
     box-shadow: 0 0 4px 2px white, 0 0 0 100vw #3338;
-    display: none;
 }
 
 .account-pop-up input {
@@ -304,6 +300,7 @@ button { cursor: pointer; }
     font-size: 1.2rem;
     box-shadow: 0 0 1px 2px white, 0 0 3px 300vw #333a;
     z-index: 9999;
+    max-height: 90vh;
 }
 
 .answer-view {
@@ -328,6 +325,10 @@ button { cursor: pointer; }
         left: 50%;
         translate: -50%;
         box-shadow: 0 0 4px 2px gray;
+    }
+
+    .pop-up {
+        width: 95vw;
     }
 }
 

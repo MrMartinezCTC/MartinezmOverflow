@@ -1,7 +1,8 @@
 import { app } from './app.js';
 import InitiateMongoServer from './db.js';
-
 import dotenv from 'dotenv';
+
+
 dotenv.config();
 
 InitiateMongoServer();
