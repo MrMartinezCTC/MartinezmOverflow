@@ -41,13 +41,15 @@ router.patch('/updateAccepted', errorWrap(async (req, res) => {
     const question = await Question.findById(answer.questionId);
 
     const previousAcceptedAnswer = await Answer.find({ questionId: answer.questionId, accepted: true });
-    if (previousAcceptedAnswer && previousAcceptedAnswer !== answer) previousAcceptedAnswer.accepted = false;
+    if (previousAcceptedAnswer && previousAcceptedAnswer !== answer) {
+        previousAcceptedAnswer.accepted = false;
+        await previousAcceptedAnswer.save();
+    } 
 
     question.accepted = req.body.boolVal;
     answer.accepted = req.body.boolVal;
     
     await answer.save();
-    await previousAcceptedAnswer.save();
     await question.save();
     
     return res.status(204).json();
@@ -61,10 +63,10 @@ export const updateUsefulness = async (req, res, Model) => {
     const doc = await getDoc(req.body.id, Model);
     if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
 
-    if (typeof req.body.add !== 'boolean') return sendError(res, 400, 'add value must be a boolean');
+    if (typeof req.body.boolVal !== 'boolean') return sendError(res, 400, 'boolVal value must be a boolean');
 
     const typeOfVote = ['down', 'up'];
-    const voteInd = req.body.add * 1;
+    const voteInd = req.body.boolVal * 1;
 
     if (doc[`${typeOfVote[voteInd]}Votes`].indexOf(req.user._id) > -1) {
         return sendError(res, 400, `You have already ${typeOfVote[voteInd]}voted this.`);
