@@ -1,5 +1,4 @@
 
-
 const answerFormContainer = document.getElementById('answerForm');
 const cancelBtn = document.getElementById('cancelSubmit');
 const submitBtn = document.getElementById('submitSubmit');
@@ -59,6 +58,11 @@ document.querySelectorAll('.votable-block').forEach(block => {
     block.addEventListener('click', e => {
         const btn = e.target.closest('.object__btn');
         if (!btn) return;
+
+        if (btn.textContent.includes('ccept')) {
+            //hit accept/unaccept endpoiint
+            return;
+        }
     
         const add = btn.textContent.includes('up');
     

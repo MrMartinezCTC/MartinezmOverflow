@@ -1,9 +1,15 @@
 import express from 'express';
 import { Question } from '../models/Question.js';
+import { Answer } from '../models/Answer.js';
 import { getDoc, sendError } from '../utils/jsonresponse.js';
 import { errorWrap } from '../utils/errorHandling.js';
 
 const router = express.Router();
+
+router.use(async (req, res, next) => {
+    if (!req.user) return sendError(res, 401, 'Must be signed in to perform attempted action.');
+    next();
+});
 
 
 router.post('/upload', errorWrap(async (req, res) => {
@@ -24,12 +30,33 @@ router.post('/upload', errorWrap(async (req, res) => {
 }));
 
 
+
+router.patch('/updateAccepted', errorWrap(async (req, res) => {
+    
+    const answer = await getDoc(req.body.id, Answer);
+    if (!answer) return sendError(res, 400, 'Could not find answer with provided id.');
+    
+    if (typeof req.body.boolVal !== 'boolean') return sendError(res, 400, 'boolVal value must be a boolean');
+
+    const question = await Question.findById(answer.questionId);
+
+    const previousAcceptedAnswer = await Answer.find({ questionId: answer.questionId, accepted: true });
+    if (previousAcceptedAnswer && previousAcceptedAnswer !== answer) previousAcceptedAnswer.accepted = false;
+
+    question.accepted = req.body.boolVal;
+    answer.accepted = req.body.boolVal;
+    
+    await answer.save();
+    await previousAcceptedAnswer.save();
+    await question.save();
+    
+    return res.status(204).json();
+}));
+
+
 router.patch('/updateUsefulness', errorWrap((req, res) => updateUsefulness(req, res, Question)));
 
-
-
 export const updateUsefulness = async (req, res, Model) => {
-    if (!req.user) return sendError(res, 401, 'Must be signed in to vote.');
 
     const doc = await getDoc(req.body.id, Model);
     if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
