@@ -134,6 +134,12 @@
                                 <div class="object__prop-val object__btn">downVote</div>
                                 <div class=""></div>
                             </div>
+                            <% if (locals.user && user._id.toString() === questionObj.userId.toString()) {%>
+                                <div class="object__prop-row">
+                                    <div class="object__prop-val object__btn"><%= `${answerObj.accepted ? 'un' : ''}accept` %></div>
+                                    <div class=""></div>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                 <% }); %>

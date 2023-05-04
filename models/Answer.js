@@ -29,6 +29,10 @@ const AnswerSchema = new Schema({
         type: Array,
         default: []
     },
+    accepted: {
+        type: Boolean,
+        default: false
+    }
 },{
     collection: 'answers'
 });

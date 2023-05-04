@@ -44,6 +44,9 @@ const QuestionSchema = new Schema({
         type: Array,
         default: []
     },
+    userId: {
+        type: Object
+    }
 },{
     collection: 'questions'
 });

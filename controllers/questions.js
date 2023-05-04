@@ -16,6 +16,7 @@ router.post('/upload', errorWrap(async (req, res) => {
     
     const user = req.user;
     questionObj.user = `${user.firstName} ${user.lastName}`;
+    questionObj.userId = user._id;
 
     await Question.create(questionObj);
 
