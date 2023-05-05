@@ -62,7 +62,20 @@ document.querySelectorAll('.votable-block').forEach(block => {
         if (btn.textContent.includes('ccept')) {
             const isAccepted = !btn.textContent.includes('un');
             return sendBoolRequest(block, 'question/updateAccepted', isAccepted, function () {
-                questionAcceptedVal.textContent = isAccepted; 
+                questionAcceptedVal.textContent = isAccepted;
+                btn.textContent = `${isAccepted ? 'un' : ''}accept`;
+                
+                const newAcceptedAnswer = btn.closest('.object-block');
+                
+                if (!isAccepted) return newAcceptedAnswer.classList.remove('accepted-answer');
+                
+                const previousAcceptedAnswer = document.querySelector('.accepted-answer');
+                if (previousAcceptedAnswer) {
+                    previousAcceptedAnswer.classList.remove('accepted-answer');
+                    previousAcceptedAnswer.querySelector('.accept-btn').textContent = 'accept';
+                }
+
+                newAcceptedAnswer.classList.add('accepted-answer');
             });
         }
     

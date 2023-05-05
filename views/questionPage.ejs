@@ -109,7 +109,7 @@
             <div>Answers</div>
             <div>
                 <% questionObj.answers.forEach(answerObj => { %>
-                    <div class="object-block votable-block" data-doc-id="<%= answerObj._id.toString() %>">
+                    <div class="object-block votable-block <%= answerObj.accepted ? 'accepted-answer' : '' %>" data-doc-id="<%= answerObj._id.toString() %>">
                         <div class="anonymous"></div>
                         <div>
                             <div class="object__prop-row">
@@ -136,7 +136,7 @@
                             </div>
                             <% if (locals.user && user._id.toString() === questionObj.userId.toString()) {%>
                                 <div class="object__prop-row">
-                                    <div class="object__prop-val object__btn"><%= `${answerObj.accepted ? 'un' : ''}accept` %></div>
+                                    <div class="object__prop-val object__btn accept-btn"><%= `${answerObj.accepted ? 'un' : ''}accept` %></div>
                                     <div class=""></div>
                                 </div>
                             <% } %>
