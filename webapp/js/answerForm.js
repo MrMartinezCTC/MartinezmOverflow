@@ -60,15 +60,15 @@ document.querySelectorAll('.votable-block').forEach(block => {
         if (!btn) return;
 
         if (btn.textContent.includes('ccept')) {
-            const makeFalse = btn.includes('un');
-            return sendBoolRequest('/question/updateAccepted', makeFalse, function () {
-                questionAcceptedVal.textContent = makeFalse; 
+            const isAccepted = !btn.textContent.includes('un');
+            return sendBoolRequest(block, 'question/updateAccepted', isAccepted, function () {
+                questionAcceptedVal.textContent = isAccepted; 
             });
         }
     
         const add = btn.textContent.includes('up');
 
-        sendBoolRequest(`${block.className.includes('question') ? 'question' : 'answer'}/updateUsefulness`, add, function () {
+        sendBoolRequest(block, `${block.className.includes('question') ? 'question' : 'answer'}/updateUsefulness`, add, function () {
             const usefulnessEl = block.querySelector('.js-usefulness');
             usefulnessEl.textContent = usefulnessEl.textContent * 1 + (add ? 1 : -1);
         });
@@ -79,7 +79,7 @@ document.querySelectorAll('.votable-block').forEach(block => {
 
 
 
-function sendBoolRequest (route, boolVal, handleSuccess) {
+function sendBoolRequest (block, route, boolVal, handleSuccess) {
     fetch(`/${route}`, {
         method: 'PATCH',
         headers: {

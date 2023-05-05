@@ -32,7 +32,6 @@ router.post('/upload', errorWrap(async (req, res) => {
 
 
 router.patch('/updateAccepted', errorWrap(async (req, res) => {
-    
     const answer = await getDoc(req.body.id, Answer);
     if (!answer) return sendError(res, 400, 'Could not find answer with provided id.');
     
@@ -40,7 +39,8 @@ router.patch('/updateAccepted', errorWrap(async (req, res) => {
 
     const question = await Question.findById(answer.questionId);
 
-    const previousAcceptedAnswer = await Answer.find({ questionId: answer.questionId, accepted: true });
+    const previousAcceptedAnswer = await Answer.findOne({ questionId: answer.questionId, accepted: true });
+
     if (previousAcceptedAnswer && previousAcceptedAnswer !== answer) {
         previousAcceptedAnswer.accepted = false;
         await previousAcceptedAnswer.save();
