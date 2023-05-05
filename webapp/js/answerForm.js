@@ -64,6 +64,7 @@ document.querySelectorAll('.votable-block').forEach(block => {
             return sendBoolRequest(block, 'question/updateAccepted', isAccepted, function () {
                 questionAcceptedVal.textContent = isAccepted;
                 btn.textContent = `${isAccepted ? 'un' : ''}accept`;
+                block.querySelector('.accepted-bool').textContent = isAccepted;
                 
                 const newAcceptedAnswer = btn.closest('.object-block');
                 
@@ -73,6 +74,7 @@ document.querySelectorAll('.votable-block').forEach(block => {
                 if (previousAcceptedAnswer) {
                     previousAcceptedAnswer.classList.remove('accepted-answer');
                     previousAcceptedAnswer.querySelector('.accept-btn').textContent = 'accept';
+                    previousAcceptedAnswer.querySelector('.accepted-bool').textContent = 'false';
                 }
 
                 newAcceptedAnswer.classList.add('accepted-answer');
