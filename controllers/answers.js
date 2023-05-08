@@ -1,15 +1,16 @@
 import express from 'express';
 import { Answer } from '../models/Answer.js';
-import { getDoc, sendError, validateId } from '../utils/jsonresponse.js';
+import { forceSignIn, getDoc, sendError, validateId } from '../utils/jsonresponse.js';
 import { Question } from '../models/Question.js';
 import { updateUsefulness } from './questions.js';
 import mongoose from 'mongoose';
 import { errorWrap } from '../utils/errorHandling.js';
 
 const ObjectId = mongoose.Types.ObjectId;
-
-
 const router = express.Router();
+
+
+router.use(forceSignIn);
 
 router.post('/upload', errorWrap(async (req, res) => {
     const answerObj = { answerText: req.body.answerText }

@@ -1,15 +1,12 @@
 import express from 'express';
 import { Question } from '../models/Question.js';
 import { Answer } from '../models/Answer.js';
-import { getDoc, sendError } from '../utils/jsonresponse.js';
+import { forceSignIn, getDoc, sendError } from '../utils/jsonresponse.js';
 import { errorWrap } from '../utils/errorHandling.js';
 
 const router = express.Router();
 
-router.use(async (req, res, next) => {
-    if (!req.user) return sendError(res, 401, 'Must be signed in to perform attempted action.');
-    next();
-});
+router.use(forceSignIn);
 
 
 router.post('/upload', errorWrap(async (req, res) => {

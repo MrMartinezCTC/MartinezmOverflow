@@ -22,3 +22,11 @@ export const getDoc = async (id, Model) => {
         return false;
     }
 } 
+
+
+export const forceSignIn = async (req, res, next) => {
+    if (!req.user) return sendError(res, 401, 'Must be signed in to perform attempted action.');
+    next();
+}
+
+
