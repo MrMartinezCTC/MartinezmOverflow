@@ -3,6 +3,7 @@ import { Question } from '../models/Question.js';
 import { Answer } from '../models/Answer.js';
 import { forceSignIn, getDoc, sendError } from '../utils/jsonresponse.js';
 import { errorWrap } from '../utils/errorHandling.js';
+import { questionPageClients } from '../app.js';
 
 const router = express.Router();
 
@@ -26,6 +27,20 @@ router.post('/upload', errorWrap(async (req, res) => {
     res.status(201).json({ success: true });
 }));
 
+
+router.get('/userIsLeaving', (req, res) => {
+    const { viewCookie } = req.cookies;
+    if (!viewCookie) return res.json({ message: "don't care." });
+
+    const minutesPassed = Date.now() - viewCookie.timeIn * 1000 * 60;
+    if (minutesPassed > 2) return res.json({ message: "don't care." });
+
+    clearTimeout(questionPageClients[viewCookie.clientId]);
+    delete questionPageClients[viewCookie.clientId];
+
+    res.clearCookie('mrCookie');
+    res.status(200).json({ success: true });
+});
 
 
 router.patch('/updateAccepted', errorWrap(async (req, res) => {

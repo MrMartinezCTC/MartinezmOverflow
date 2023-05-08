@@ -58,6 +58,9 @@ app.get('/questionform', errorWrap((req, res) => {
 }));
 
 
+export const questionPageClients = {};
+
+
 app.get('/questionpage', errorWrap(async (req, res) => {
 	
 	let theQuestion, id = req.query.id;
@@ -69,6 +72,29 @@ app.get('/questionpage', errorWrap(async (req, res) => {
 	});
 
 	theQuestion.answers = await Answer.find({ questionId: theQuestion._id }).exec();
+
+	// const clientId = crypto.randomUUID(); 
+	const clientId = `${Math.random()}${Math.random()}`.replace(/./g); 
+
+	res.cookie([
+        'viewCookie',
+        jwt.sign({ clientId, questionId: req.query.id, timeIn: Date.now() }, process.env.SECRET, { expiresIn: '3m' }),
+        {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: (new Date ()).getMilliseconds() + 1000 * 60 * 3
+        }
+    ]);
+
+	questionPageClients[clientId] = setTimeout(async () => {
+		if (!questionPageClients[clientId]) return; // probably not necessary, but oh well.
+
+		const question = await getDoc(req.query.id);
+		if (!question) return;
+        question.views++;
+        await question.save();
+	}, 1000 * 60 * 2);
 
 	res.render('questionPage', {
 		user: req.user,
