@@ -112,3 +112,8 @@ function sendBoolRequest (block, route, boolVal, handleSuccess) {
         console.log(err);
     });
 }
+
+
+window.onunload = function () {
+    fetch('/question/userIsLeaving');
+};
