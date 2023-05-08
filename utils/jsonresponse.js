@@ -29,4 +29,16 @@ export const forceSignIn = async (req, res, next) => {
     next();
 }
 
+export const sendCookie = (res, cookieName, cookieObj, expiresIn, maxAgeInSeconds) => {
+    res.cookie([
+        cookieName,
+        jwt.sign(cookieObj, process.env.SECRET, { expiresIn }),
+        {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: (new Date ()).getMilliseconds() + 1000 * maxAgeInSeconds
+        }
+    ]);
+}
 
