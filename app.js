@@ -71,7 +71,7 @@ app.get('/questionpage', errorWrap(async (req, res) => {
 		issue: 'The question requested does not exist.'
 	});
 
-	theQuestion.answers = await Answer.find({ questionId: theQuestion._id }).exec();
+	theQuestion.answers = await Answer.find({ questionId: theQuestion._id }).sort({ accepted: -1, usefulness: -1 }).exec();
 
 	// const clientId = crypto.randomUUID(); 
 	const clientId = `${Math.random()}${Math.random()}`.replace(/./g); 
