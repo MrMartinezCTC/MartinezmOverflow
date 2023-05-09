@@ -4,11 +4,31 @@ import { Answer } from '../models/Answer.js';
 import { forceSignIn, getDoc, sendError } from '../utils/jsonresponse.js';
 import { errorWrap } from '../utils/errorHandling.js';
 import { questionPageClients } from '../app.js';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-router.use(forceSignIn);
 
+router.get('/userIsLeaving', (req, res) => {
+    const { viewCookie } = req.cookies;
+    if (!viewCookie) return res.json({ message: "don't care." });
+
+    const elCookieObj = jwt.verify(viewCookie, process.env.SECRET);
+	if (typeof elCookieObj !== 'object') return res.json({ message: "don't care." });
+
+    const minutesPassed = Date.now() - elCookieObj.timeIn * 1000 * 60;
+
+    if (minutesPassed > 2) return res.json({ message: "don't care." });
+
+    clearTimeout(questionPageClients[elCookieObj.clientId]);
+    delete questionPageClients[elCookieObj.clientId];
+
+    res.clearCookie('viewCookie');
+    res.status(200).json({ success: true });
+});
+
+
+router.use(forceSignIn);
 
 router.post('/upload', errorWrap(async (req, res) => {
     const questionObj = {
@@ -26,21 +46,6 @@ router.post('/upload', errorWrap(async (req, res) => {
 
     res.status(201).json({ success: true });
 }));
-
-
-router.get('/userIsLeaving', (req, res) => {
-    const { viewCookie } = req.cookies;
-    if (!viewCookie) return res.json({ message: "don't care." });
-
-    const minutesPassed = Date.now() - viewCookie.timeIn * 1000 * 60;
-    if (minutesPassed > 2) return res.json({ message: "don't care." });
-
-    clearTimeout(questionPageClients[viewCookie.clientId]);
-    delete questionPageClients[viewCookie.clientId];
-
-    res.clearCookie('mrCookie');
-    res.status(200).json({ success: true });
-});
 
 
 router.patch('/updateAccepted', errorWrap(async (req, res) => {

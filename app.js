@@ -8,7 +8,7 @@ import { Question } from './models/Question.js';
 import { Answer } from './models/Answer.js';
 import { errorWrap } from './utils/errorHandling.js';
 import express from 'express';
-import { getDoc } from './utils/jsonresponse.js';
+import { getDoc, sendCookie } from './utils/jsonresponse.js';
 
 
 export const app = express();
@@ -76,16 +76,11 @@ app.get('/questionpage', errorWrap(async (req, res) => {
 	// const clientId = crypto.randomUUID(); 
 	const clientId = `${Math.random()}${Math.random()}`.replace(/./g); 
 
-	res.cookie(
-        'viewCookie',
-        jwt.sign({ clientId, questionId: req.query.id, timeIn: Date.now() }, process.env.SECRET, { expiresIn: '3m' }),
-        {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'strict',
-            maxAge: (new Date ()).getMilliseconds() + 1000 * 60 * 3
-        }
-    );
+	sendCookie(
+		res, 'viewCookie',
+		{ clientId, questionId: req.query.id, timeIn: Date.now() },
+		'3m', 180
+	)
 
 	questionPageClients[clientId] = setTimeout(async () => {
 		if (!questionPageClients[clientId]) return; // probably not necessary, but oh well.

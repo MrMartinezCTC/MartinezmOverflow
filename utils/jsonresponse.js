@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
 const ObjectId = mongoose.Types.ObjectId;
@@ -30,7 +31,7 @@ export const forceSignIn = async (req, res, next) => {
 }
 
 export const sendCookie = (res, cookieName, cookieObj, expiresIn, maxAgeInSeconds) => {
-    res.cookie([
+    res.cookie(
         cookieName,
         jwt.sign(cookieObj, process.env.SECRET, { expiresIn }),
         {
@@ -39,6 +40,6 @@ export const sendCookie = (res, cookieName, cookieObj, expiresIn, maxAgeInSecond
             sameSite: 'strict',
             maxAge: (new Date ()).getMilliseconds() + 1000 * maxAgeInSeconds
         }
-    ]);
+    );
 }
 
