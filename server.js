@@ -1,11 +1,20 @@
 import { app } from './app.js';
-import InitiateMongoServer from './db.js';
+import mongoose from "mongoose";
 import dotenv from 'dotenv';
-
 
 dotenv.config();
 
-InitiateMongoServer();
+const MONGOURI = `mongodb+srv://${process.env.MONGOSTRING}?retryWrites=true&w=majority`;
+
+try {
+    await mongoose.connect(MONGOURI, {
+        useNewUrlParser: true
+    });
+    console.log("Connected to DB!!");
+} catch (e) {
+    console.log(e);
+    throw e;
+}
 
 const PORT = 3000;
 const HOST = '0.0.0.0';
