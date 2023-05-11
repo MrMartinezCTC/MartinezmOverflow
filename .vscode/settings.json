@@ -3,5 +3,8 @@
         "MONGOSTRING",
         "MONGOURI",
         "Moverflow"
+    ],
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/main_martinezmoverflow.yml"
     ]
 }
