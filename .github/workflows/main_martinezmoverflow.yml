@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'MartinezmOverflow'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_951F2B7D539142D4AA4CD8EE030F0D6C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D9A2A09FEBD0465DAD261D765A1923B7 }}
           package: .
