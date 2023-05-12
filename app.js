@@ -24,7 +24,7 @@ app.use(errorWrap(async (req, res, next) => {
 	const { mrCookie } = req.cookies;
 	if (!mrCookie) return next();
 
-	const elCookieObj = jwt.verify(mrCookie, process.env.SECRET);
+	const elCookieObj = jwt.verify(mrCookie, "b538a79f-b361-4236-8124-0d5106942e45");
 	if (typeof elCookieObj !== 'object') return next();
 
 	const email = elCookieObj.email;
