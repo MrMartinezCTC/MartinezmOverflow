@@ -16,7 +16,7 @@ try {
     throw e;
 }
 
-const PORT = 443;
+const PORT = 8080;
 const HOST = 'localhost';
 
 //app.listen(PORT, HOST);
