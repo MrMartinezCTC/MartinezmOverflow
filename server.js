@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const MONGOURI = `mongodb+srv://${process.env.MONGOSTRING}?retryWrites=true&w=majority`;
+const MONGOURI = `mongodb+srv://jodi229:c4B8xhva@cluster0.zkfhtus.mongodb.net/martinezMoverflow?retryWrites=true&w=majority`;
 
 try {
     await mongoose.connect(MONGOURI, {
@@ -16,7 +16,7 @@ try {
     throw e;
 }
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 const HOST = 'localhost';
 
 //app.listen(PORT, HOST);
