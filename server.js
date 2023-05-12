@@ -1,7 +1,7 @@
 // import { app } from './app.js';
 // import mongoose from "mongoose";
 // import dotenv from 'dotenv';
-const { app } = require('./app.js');
+const { app } = require('./app');//no js extension
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
 

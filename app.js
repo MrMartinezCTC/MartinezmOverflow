@@ -9,17 +9,17 @@
 // import { errorWrap } from './utils/errorHandling.js';
 // import express from 'express';
 // import { getDoc, sendCookie } from './utils/jsonresponse.js';
-const user = require('./controllers/users.js');
-const { questionPageClients, question } = require('./controllers/questions.js');
-const answer = require('./controllers/answers.js');
+const user = require('./controllers/users');//no js extension
+const { questionPageClients, question } = require('./controllers/questions');//no js extension
+const answer = require('./controllers/answers');//no js extension
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const { User } = require('./models/User.js');
-const { Question } = require('./models/Question.js');
-const { Answer } = require('./models/Answer.js');
-const { errorWrap } = require('./utils/errorHandling.js');
+const { User } = require('./models/User');//no js extension
+const { Question } = require('./models/Question');//no js extension
+const { Answer } = require('./models/Answer');//no js extension
+const { errorWrap } = require('./utils/errorHandling');//no js extension
 const express = require('express');
-const { getDoc, sendCookie } = require('./utils/jsonresponse.js');
+const { getDoc, sendCookie } = require('./utils/jsonresponse');//no js extension
 
 
 // export const app = express();

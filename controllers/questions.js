@@ -5,10 +5,10 @@
 // import { errorWrap } from '../utils/errorHandling.js';
 // import jwt from 'jsonwebtoken';
 const express = require('express');
-const { Question } = require('../models/Question.js');
-const { Answer } = require('../models/Answer.js');
-const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse.js');
-const { errorWrap } = require('../utils/errorHandling.js');
+const { Question } = require('../models/Question');//no js extension
+const { Answer } = require('../models/Answer');//no js extension
+const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse');//no js extension
+const { errorWrap } = require('../utils/errorHandling');//no js extension
 const jwt = require('jsonwebtoken');
 
 const router = express.Router();

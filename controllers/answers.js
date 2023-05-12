@@ -8,11 +8,11 @@
 
 const express = require('express');
 const { Answer } = require('../models/Answer');
-const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse.js');
-const { Question } = require('../models/Question.js');
-const { updateUsefulness } = require('./questions.js');
+const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse');//no js extension
+const { Question } = require('../models/Question');//no js extension
+const { updateUsefulness } = require('./questions');//no js extension
 const mongoose = require('mongoose');
-const { errorWrap } = require('../utils/errorHandling.js');
+const { errorWrap } = require('../utils/errorHandling');//no js extension
 
 
 const ObjectId = mongoose.Types.ObjectId;

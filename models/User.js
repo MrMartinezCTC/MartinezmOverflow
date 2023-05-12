@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose';
 // import { _maxLength, _minLength, _required } from '../utils/Model.js';
 const mongoose = require('mongoose');
-const { _maxLength, _minLength, _required } = require('../utils/Model.js');
+const { _maxLength, _minLength, _required } = require('../utils/Model');//no js extension
 
 const Schema = mongoose.Schema;
 

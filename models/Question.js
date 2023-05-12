@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose';
 // import { _required } from '../utils/Model.js';
 const mongoose = require('mongoose');
-const { _required } = require('../utils/Model.js');
+const { _required } = require('../utils/Model');//no js extension
 
 const Schema = mongoose.Schema;
 

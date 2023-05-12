@@ -1,1 +1,1 @@
-import('./server.js');
+import('./server');//no js extension

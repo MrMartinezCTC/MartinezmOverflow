@@ -7,9 +7,9 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/User.js');
-const { sendError } = require('../utils/jsonresponse.js');
-const { errorWrap } = require('../utils/errorHandling.js');
+const { User } = require('../models/User');//no js extension
+const { sendError } = require('../utils/jsonresponse');//no js extension
+const { errorWrap } = require('../utils/errorHandling');//no js extension
 
 const router = express.Router();
 
