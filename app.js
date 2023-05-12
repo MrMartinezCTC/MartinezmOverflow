@@ -1,17 +1,29 @@
-import user from './controllers/users.js';
-import question from './controllers/questions.js';
-import answer from './controllers/answers.js';
-import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
-import { User } from './models/User.js';
-import { Question } from './models/Question.js';
-import { Answer } from './models/Answer.js';
-import { errorWrap } from './utils/errorHandling.js';
-import express from 'express';
-import { getDoc, sendCookie } from './utils/jsonresponse.js';
+// import user from './controllers/users.js';
+// import question from './controllers/questions.js';
+// import answer from './controllers/answers.js';
+// import cookieParser from 'cookie-parser';
+// import jwt from 'jsonwebtoken';
+// import { User } from './models/User.js';
+// import { Question } from './models/Question.js';
+// import { Answer } from './models/Answer.js';
+// import { errorWrap } from './utils/errorHandling.js';
+// import express from 'express';
+// import { getDoc, sendCookie } from './utils/jsonresponse.js';
+const user = require('./controllers/users.js');
+const question = require('./controllers/questions.js');
+const answer = require('./controllers/answers.js');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const { User } = require('./models/User.js');
+const { Question } = require('./models/Question.js');
+const { Answer } = require('./models/Answer.js');
+const { errorWrap } = require('./utils/errorHandling.js');
+const express = require('express');
+const { getDoc, sendCookie } = require('./utils/jsonresponse.js');
 
 
-export const app = express();
+// export const app = express();
+module.exports.app = express();
 
 
 app.set("view engine", "ejs");
@@ -58,8 +70,8 @@ app.get('/questionform', errorWrap((req, res) => {
 }));
 
 
-export const questionPageClients = {};
-
+// export const questionPageClients = {};
+module.exports.questionPageClients = {};
 
 app.get('/questionpage', errorWrap(async (req, res) => {
 	

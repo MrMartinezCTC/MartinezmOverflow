@@ -1,10 +1,17 @@
-import express from 'express';
-import { Question } from '../models/Question.js';
-import { Answer } from '../models/Answer.js';
-import { forceSignIn, getDoc, sendError } from '../utils/jsonresponse.js';
-import { errorWrap } from '../utils/errorHandling.js';
-import { questionPageClients } from '../app.js';
-import jwt from 'jsonwebtoken';
+// import express from 'express';
+// import { Question } from '../models/Question.js';
+// import { Answer } from '../models/Answer.js';
+// import { forceSignIn, getDoc, sendError } from '../utils/jsonresponse.js';
+// import { errorWrap } from '../utils/errorHandling.js';
+// import { questionPageClients } from '../app.js';
+// import jwt from 'jsonwebtoken';
+const express = require('express');
+const { Question } = require('../models/Question.js');
+const { Answer } = require('../models/Answer.js');
+const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse.js');
+const { errorWrap } = require('../utils/errorHandling.js');
+const { questionPageClients } = require('../app.js');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -75,7 +82,8 @@ router.patch('/updateAccepted', errorWrap(async (req, res) => {
 
 router.patch('/updateUsefulness', errorWrap((req, res) => updateUsefulness(req, res, Question)));
 
-export const updateUsefulness = async (req, res, Model) => {
+// export const updateUsefulness = async (req, res, Model) => {
+module.exports.updateUsefulness = async (req, res, Model) => {
 
     const doc = await getDoc(req.body.id, Model);
     if (!doc) return sendError(res, 400, 'Could not find document with provided id.');
@@ -100,4 +108,5 @@ export const updateUsefulness = async (req, res, Model) => {
     return res.status(204).json();
 }
 
-export default router;
+// export default router;
+module.exports = router;

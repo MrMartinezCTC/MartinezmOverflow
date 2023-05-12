@@ -1,21 +1,26 @@
-import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
+// import jwt from 'jsonwebtoken';
+// import mongoose from 'mongoose';
+const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const ObjectId = mongoose.Types.ObjectId;
 
 
-export const sendError = (res, status, message) => {
+// export const sendError = (res, status, message) => {
+module.exports.sendError = (res, status, message) => {
     res.status(status).json({
         isError: true,
         message
     })
 }
 
-export const validateId = async (id, Model) => {
+// export const validateId = async (id, Model) => {
+module.exports.validateId = async (id, Model) => {
     return ObjectId.isValid(id) && (!Model || (await Model.exists({ _id: id })));
 }
 
-export const getDoc = async (id, Model) => {
+// export const getDoc = async (id, Model) => {
+module.exports.getDoc = async (id, Model) => {
     if (!validateId(id)) return false;
     try {
         return await Model.findById(id);
@@ -25,12 +30,14 @@ export const getDoc = async (id, Model) => {
 } 
 
 
-export const forceSignIn = async (req, res, next) => {
+// export const forceSignIn = async (req, res, next) => {
+module.exports.forceSignIn = async (req, res, next) => {
     if (!req.user) return sendError(res, 401, 'Must be signed in to perform attempted action.');
     next();
 }
 
-export const sendCookie = (res, cookieName, cookieObj, expiresIn, maxAgeInSeconds) => {
+// export const sendCookie = (res, cookieName, cookieObj, expiresIn, maxAgeInSeconds) => {
+module.exports.sendCookie = (res, cookieName, cookieObj, expiresIn, maxAgeInSeconds) => {
     res.cookie(
         cookieName,
         jwt.sign(cookieObj, process.env.SECRET, { expiresIn }),

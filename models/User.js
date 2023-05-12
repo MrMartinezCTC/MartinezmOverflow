@@ -1,5 +1,7 @@
-import mongoose from 'mongoose';
-import { _maxLength, _minLength, _required } from '../utils/Model.js';
+// import mongoose from 'mongoose';
+// import { _maxLength, _minLength, _required } from '../utils/Model.js';
+const mongoose = require('mongoose');
+const { _maxLength, _minLength, _required } = require('../utils/Model.js');
 
 const Schema = mongoose.Schema;
 
@@ -38,4 +40,5 @@ UserSchema.path('email').validate(async email => {
 }, 'The provided email is already in use.');
 
 
-export const User = mongoose.model('User', UserSchema);
+// export const User = mongoose.model('User', UserSchema);
+module.exports.User = mongoose.model('User', UserSchema);

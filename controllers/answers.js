@@ -1,10 +1,19 @@
-import express from 'express';
-import { Answer } from '../models/Answer.js';
-import { forceSignIn, getDoc, sendError, validateId } from '../utils/jsonresponse.js';
-import { Question } from '../models/Question.js';
-import { updateUsefulness } from './questions.js';
-import mongoose from 'mongoose';
-import { errorWrap } from '../utils/errorHandling.js';
+// import express from 'express';
+// import { Answer } from '../models/Answer.js';
+// import { forceSignIn, getDoc, sendError, validateId } from '../utils/jsonresponse.js';
+// import { Question } from '../models/Question.js';
+// import { updateUsefulness } from './questions.js';
+// import mongoose from 'mongoose';
+// import { errorWrap } from '../utils/errorHandling.js';
+
+const express = require('express');
+const { Answer } = require('../models/Answer');
+const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse.js');
+const { Question } = require('../models/Question.js');
+const { updateUsefulness } = require('./questions.js');
+const mongoose = require('mongoose');
+const { errorWrap } = require('../utils/errorHandling.js');
+
 
 const ObjectId = mongoose.Types.ObjectId;
 const router = express.Router();
@@ -36,4 +45,5 @@ router.post('/upload', errorWrap(async (req, res) => {
 router.patch('/updateUsefulness', errorWrap((req, res) => updateUsefulness(req, res, Answer)));
 
 
-export default router;
+// export default router;
+module.exports = router;

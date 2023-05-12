@@ -1,5 +1,7 @@
-import mongoose from 'mongoose';
-import { _required } from '../utils/Model.js'
+// import mongoose from 'mongoose';
+// import { _required } from '../utils/Model.js';
+const mongoose = require('mongoose');
+const { _required } = require('../utils/Model.js');
 
 const Schema = mongoose.Schema;
 
@@ -54,4 +56,5 @@ const QuestionSchema = new Schema({
 QuestionSchema.index({ "title": "text", "questionText": "text" });
 
 
-export const Question = mongoose.model('questions', QuestionSchema);
+// export const Question = mongoose.model('questions', QuestionSchema);
+module.exports.Question = mongoose.model('questions', QuestionSchema);

@@ -1,9 +1,15 @@
-import express from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { User } from '../models/User.js';
-import { sendError } from '../utils/jsonresponse.js';
-import { errorWrap } from '../utils/errorHandling.js';
+// import express from 'express';
+// import bcrypt from 'bcrypt';
+// import jwt from 'jsonwebtoken';
+// import { User } from '../models/User.js';
+// import { sendError } from '../utils/jsonresponse.js';
+// import { errorWrap } from '../utils/errorHandling.js';
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { User } = require('../models/User.js');
+const { sendError } = require('../utils/jsonresponse.js');
+const { errorWrap } = require('../utils/errorHandling.js');
 
 const router = express.Router();
 
@@ -93,4 +99,5 @@ function setCookie(email) {
     ];
 }
 
-export default router;
+// export default router;
+module.exports = router;

@@ -1,5 +1,7 @@
-import mongoose from 'mongoose';
-import { _required } from '../utils/Model.js';
+// import mongoose from 'mongoose';
+// import { _required } from '../utils/Model.js';
+const mongoose = require ('mongoose');
+const { _required } = require ('../utils/Model.js');
 
 const Schema = mongoose.Schema;
 
@@ -38,4 +40,5 @@ const AnswerSchema = new Schema({
 });
 
 
-export const Answer = mongoose.model('answers', AnswerSchema);
+// export const Answer = mongoose.model('answers', AnswerSchema);
+module.exports.Answer = mongoose.model('answers', AnswerSchema);
