@@ -16,7 +16,7 @@ try {
     throw e;
 }
 
-const PORT = 3000;
+const PORT = 443;
 const HOST = 'localhost';
 
 //app.listen(PORT, HOST);
