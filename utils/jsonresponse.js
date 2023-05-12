@@ -7,17 +7,20 @@ const ObjectId = mongoose.Types.ObjectId;
 
 
 // export const sendError = (res, status, message) => {
-module.exports.sendError = (res, status, message) => {
+const sendError = (res, status, message) => {
     res.status(status).json({
         isError: true,
         message
     })
 }
+module.exports.sendError = sendError;
+
 
 // export const validateId = async (id, Model) => {
-module.exports.validateId = async (id, Model) => {
+const validateId = async (id, Model) => {
     return ObjectId.isValid(id) && (!Model || (await Model.exists({ _id: id })));
 }
+module.exports.validateId = validateId;
 
 // export const getDoc = async (id, Model) => {
 module.exports.getDoc = async (id, Model) => {

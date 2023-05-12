@@ -3,18 +3,19 @@
 // import { Answer } from '../models/Answer.js';
 // import { forceSignIn, getDoc, sendError } from '../utils/jsonresponse.js';
 // import { errorWrap } from '../utils/errorHandling.js';
-// import { questionPageClients } from '../app.js';
 // import jwt from 'jsonwebtoken';
 const express = require('express');
 const { Question } = require('../models/Question.js');
 const { Answer } = require('../models/Answer.js');
 const { forceSignIn, getDoc, sendError } = require('../utils/jsonresponse.js');
 const { errorWrap } = require('../utils/errorHandling.js');
-const { questionPageClients } = require('../app.js');
 const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
+
+const questionPageClients = {};
+module.exports.questionPageClients = questionPageClients;
 
 router.get('/userIsLeaving', (req, res) => {
     const { viewCookie } = req.cookies;
@@ -109,4 +110,4 @@ module.exports.updateUsefulness = async (req, res, Model) => {
 }
 
 // export default router;
-module.exports = router;
+module.exports.question = router;
