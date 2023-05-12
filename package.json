@@ -17,7 +17,6 @@
     "ejs": "^3.1.9",
     "express": "^4.16.1",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.2",
-    "iisnode": "0.2.25"
+    "mongoose": "^7.0.2"
   }
 }
